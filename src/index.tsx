@@ -6,7 +6,7 @@ import {applyMiddleware, createStore} from 'redux';
 import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import AdminCategories from "./components/Admin/AdminCategories";
-import App from './components/App';
+import App from './components/App/App';
 import Dashboard from "./components/Dashboard/Dashboard";
 import Reducers from "./reducers/index";
 import registerServiceWorker from './registerServiceWorker';

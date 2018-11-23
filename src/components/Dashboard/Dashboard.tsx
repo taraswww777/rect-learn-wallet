@@ -1,19 +1,16 @@
 import * as React from 'react';
 import bem, {InterfaceBEMProps} from '../../hoc/bem';
-import './Dashboard.scss';
-// import './Dashboard.css';
+import Message from "../Message/Message";
+import './Dashboard.css';
 
-
-interface InterfaceDashboardProps extends InterfaceBEMProps {
-	cont?: any
-}
-
-class Dashboard extends React.Component<InterfaceDashboardProps> {
+class Dashboard extends React.Component<InterfaceBEMProps> {
 	public render() {
-		console.log('render Dashboard', this);
+		console.log('Dashboard this:', this);
+		// noinspection RequiredAttributes
 		return (
 			<div className={this.props.bemBlock()}>
 				<h1 className={this.props.bemElem('title')}>Dashboard</h1>
+				<Message type={'success'} children={'sfw'}/>
 			</div>
 		);
 	}

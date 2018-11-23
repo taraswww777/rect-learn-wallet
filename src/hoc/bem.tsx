@@ -9,7 +9,7 @@ export interface InterfaceBEMProps {
 	bemElem: TypeElemFunction,
 }
 
-function bem(ChildComponentClass: any, blockName: string) {
+function bem(ChildComponentClass: any, blockName: string): any {
 	return class Container extends React.Component <InterfaceBEMProps> {
 
 		public bemBlock(mod?: string, modValue?: string) {

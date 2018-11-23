@@ -7,7 +7,7 @@ import {BASE_URL_API} from '../../config';
 import {ADMIN_CATEGORIES_SET_LIST, ADMIN_CATEGORIES_SET_LOAD_LIST_STATUS} from "../../reducers/ReducerCategories";
 import {TypeDispatch} from "../../types/InterfaceAction";
 import {typeFunction} from "../../types/Interfaces";
-import Message from '../Message';
+import Message from '../Message/Message';
 import PreLoader from "../PreLoader";
 import AdminCategoriesList from "./AdminCategoriesList/AdminCategoriesList";
 

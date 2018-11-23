@@ -1,48 +1,25 @@
 import * as React from 'react';
 import {InterfaceCategory} from 'src/types/InterfaceCategory';
-import styled from "styled-components";
+import bem, {InterfaceBEMProps} from "../../../hoc/bem";
 import AdminCategoriesList from "./AdminCategoriesList";
 
 
-const BlockAdminCategoriesListItem = styled.div`
-	width: 100%; 
-	padding: 5px;
-	background:gold;
-	margin: 0 0 10px;
-	
-	&:last-child{
-		margin: 0;
-	}
-`;
-
-const ElemAdminCategoriesListItemName = styled.div`
-	padding: 5px;
-	background: skyblue;
-`;
-
-const ElemAdminCategoriesListItemChild = styled.div`
-	padding-left: 10px;
-	
-	.ElemAdminCategoriesListItemName{
-		margin: 0;
-	}
-`;
-
-interface InterfaceAdminCategoriesListItemProps {
+interface InterfaceAdminCategoriesListItemProps extends InterfaceBEMProps {
 	category: InterfaceCategory;
 }
 
 function AdminCategoriesListItem(props: InterfaceAdminCategoriesListItemProps) {
+	// noinspection RequiredAttributes
 	return (
-		<BlockAdminCategoriesListItem>
-			<ElemAdminCategoriesListItemName>{props.category.name}</ElemAdminCategoriesListItemName>
+		<div className={props.bemBlock()}>
+			<div className={props.bemElem('name')}>{props.category.name}</div>
 
-			{props.category.child && <ElemAdminCategoriesListItemChild>
+			{props.category.child && <div className={props.bemElem('child')}>
 				<AdminCategoriesList categoryList={props.category.child}/>
-			</ElemAdminCategoriesListItemChild>}
+			</div>}
 
-		</BlockAdminCategoriesListItem>
+		</div>
 	);
 }
 
-export default AdminCategoriesListItem;
+export default bem(AdminCategoriesListItem, 'admin-categories-list-item');

@@ -1,24 +1,23 @@
 import * as React from 'react';
 import {InterfaceCategory} from 'src/types/InterfaceCategory';
-import styled from "styled-components";
+import bem, {InterfaceBEMProps} from "../../../hoc/bem";
+import "./AdminCategoriesList.css";
 import AdminCategoriesListItem from "./AdminCategoriesListItem";
 
-const BlockAdminCategoriesList = styled.div`
-	width: 100%;
-`;
 
-interface InterfaceAdminCategoriesList {
+interface InterfaceAdminCategoriesList extends InterfaceBEMProps {
 	categoryList: InterfaceCategory[];
 }
 
 function AdminCategoriesList(props: InterfaceAdminCategoriesList) {
 	return (
-		<BlockAdminCategoriesList>
+		<div className={props.bemBlock()}>
 			{props.categoryList.map((category: InterfaceCategory) => (
 				<AdminCategoriesListItem key={category.id} category={category}/>
 			))}
-		</BlockAdminCategoriesList>
+		</div>
 	);
 }
 
-export default AdminCategoriesList;
+export default bem(AdminCategoriesList, 'admin-categories-list');
+
