@@ -33,6 +33,12 @@ app.get('/api/categories', (req, response) => {
 	response.end();
 });
 
+app.get('/api/getCategoryById/:id', (req, response) => {
+
+	response.json(categories.getById(req.params.id));
+	response.end();
+});
+
 app.get('/*', (req, response) => {
 	console.log('404 req.params: ', req.params);
 	response.send('404');

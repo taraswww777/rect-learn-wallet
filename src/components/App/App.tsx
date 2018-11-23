@@ -11,7 +11,7 @@ class App extends React.Component <InterfaceBEMProps> {
 					<div className={this.props.bemElem('header')}>BlockAppHeader</div>
 
 					<div className={this.props.bemElem('middle')}>
-						<div className={this.props.bemElem('left-ber')}><LeftBar/></div>
+						<div className={this.props.bemElem('left-bar')}><LeftBar/></div>
 						<div className={this.props.bemElem('main')}>{this.props.children}</div>
 					</div>
 
