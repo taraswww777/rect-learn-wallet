@@ -10,7 +10,7 @@ function filterListCategoryById(listCategory = [], categoryId) {
 		if (!res) {
 			res = category.id === categoryId && category;
 
-			if (category.child) {
+			if (!res && category.child) {
 				res = filterListCategoryById(category.child, categoryId)
 			}
 		}
