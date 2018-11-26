@@ -8,15 +8,12 @@ function loadListCategories() {
 	return require(PATH_FILE_CATEGORY);
 }
 
-function filterListCategoryById(listCategory = [], categoryId) {
+function getCategoryByIdFromList(listCategory = [], categoryId) {
 	let res = false;
+	categoryId = parseInt(categoryId);
 	listCategory.map(category => {
 		if (!res) {
 			res = category.id === categoryId && category;
-
-			if (!res && category.child) {
-				res = filterListCategoryById(category.child, categoryId)
-			}
 		}
 	});
 	return res;
@@ -78,7 +75,20 @@ module.exports.getTreeAll = function () {
 
 module.exports.getById = function (categoryId) {
 	let listCategory = loadListCategories();
-	return filterListCategoryById(listCategory, parseInt(categoryId));
+	return getCategoryByIdFromList(listCategory, categoryId);
+};
+
+module.exports.delById = function (categoryId) {
+	let listCategory = loadListCategories();
+	let category = getCategoryByIdFromList(listCategory, categoryId);
+	listCategory = delById(listCategory, categoryId);
+	saveListToJsonFile(listCategory);
+
+	return {
+		message: `Success delete "${category.name}"`,
+		messageType: 'success',
+		categoryId: categoryId,
+	};
 };
 
 module.exports.saveById = function (categoryId, dataCategory) {

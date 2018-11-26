@@ -22,6 +22,8 @@ ReactDOM.render((
 			<App>
 				<Switch>
 					<Route path={'/'} exact={true} component={Dashboard}/>
+					<Route path={'/admin/categories/add/:id'} component={AdminCategoriesEditor}/>
+					<Route path={'/admin/categories/add'} component={AdminCategoriesEditor}/>
 					<Route path={'/admin/categories/editor/:id'} component={AdminCategoriesEditor}/>
 					<Route path={'/admin/categories'} component={AdminCategories}/>
 					<Route path={'/admin'} component={DashboardAdmin}/>
