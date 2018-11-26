@@ -1,9 +1,11 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const PATH_FILE_CATEGORY = path.join(__dirname, '../data/categories.json');
+
 
 function loadListCategories() {
-	return require('../data/categoryes');
+	return require(PATH_FILE_CATEGORY);
 }
 
 function filterListCategoryById(listCategory = [], categoryId) {
@@ -37,26 +39,41 @@ function delById(listCategory = [], categoryId) {
 }
 
 function changeById(listCategory = [], categoryData) {
-	let res = listCategory;
-	let categoryId = String(categoryData.id);
+	listCategory[categoryData.id] = categoryData;
+	return listCategory.filter(el => el);
+}
+
+function saveListToJsonFile(listCategory = []) {
+	let stream = fs.createWriteStream(PATH_FILE_CATEGORY);
+	let res = false;
+	stream.once('open', (fd) => {
+		res = stream.write(JSON.stringify(listCategory));
+		stream.end();
+	});
+	return res;
+}
+
+function listToTree(listCategory = [], parentId = 0) {
+	let res = [];
+
 	if (listCategory) {
-		listCategory.map((category, index) => {
-			if (String(category.id) === categoryId) {
-				console.log('delete res[index];', index);
-				res[index] = {
-					...res[index],
-					categoryData
-				};
-			} else if (category.child) {
-				category.child = delById(category.child, categoryId);
+		listCategory.map(category => {
+			if (category.parentId === parentId) {
+				res[category.id] = category;
+				res[category.id]['child'] = listToTree(listCategory, category.id);
 			}
 		});
 	}
+
 	return res.filter(el => el);
 }
 
 module.exports.getListAll = function () {
 	return loadListCategories();
+};
+
+module.exports.getTreeAll = function () {
+	return listToTree(loadListCategories());
 };
 
 module.exports.getById = function (categoryId) {
@@ -65,12 +82,11 @@ module.exports.getById = function (categoryId) {
 };
 
 module.exports.saveById = function (categoryId, dataCategory) {
-	let listCategory = changeById(loadListCategories(), dataCategory);
-	let pathFile = path.join(__dirname, '../data/categoryes.json');
+	saveListToJsonFile(changeById(loadListCategories(), dataCategory));
 
-	let stream = fs.createWriteStream(pathFile);
-	stream.once('open', (fd) => {
-		stream.write(JSON.stringify(listCategory));
-		stream.end();
-	});
+	return {
+		message: `Success saving "${dataCategory.name}"`,
+		messageType: 'success',
+		dataCategory: dataCategory,
+	};
 };

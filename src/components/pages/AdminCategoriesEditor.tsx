@@ -67,11 +67,11 @@ class AdminCategoriesEditor extends React.Component<InterfaceAdminCategoriesEdit
 
 function mapSPAdminCategories(state: any): object {
 	return {
-		categoryItem: state.ReducerFilms.categoryItem,
-		categoryList: state.ReducerFilms.categoryList,
-		loadCategoryItemStatus: state.ReducerFilms.loadCategoryItemStatus,
-		loadCategoryListStatus: state.ReducerFilms.loadCategoryListStatus,
-		savingCategoryStatus: state.ReducerFilms.savingCategoryStatus,
+		categoryItem: state.ReducerCategories.categoryItem,
+		categoryList: state.ReducerCategories.categoryList,
+		loadCategoryItemStatus: state.ReducerCategories.loadCategoryItemStatus,
+		loadCategoryListStatus: state.ReducerCategories.loadCategoryListStatus,
+		savingCategoryStatus: state.ReducerCategories.savingCategoryStatus,
 	};
 }
 

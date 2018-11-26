@@ -22,7 +22,7 @@ export type  typeFunctionSaveCategory = (category: InterfaceCategory) => void;
 export function dispatchAdminCategories(dispatch: TypeDispatch) {
 	return {
 		loadListCategories: (): void => {
-			const url = encodeURI(`${BASE_URL_API}/api/categories`);
+			const url = encodeURI(`${BASE_URL_API}/api/getCategoriesTree`);
 
 			dispatch({type: ADMIN_CATEGORIES_SET_LOAD_LIST_STATUS, payload: STATUS_LOADING_CATEGORY_LIST_IN_PROCESS});
 

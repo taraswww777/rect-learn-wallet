@@ -40,8 +40,8 @@ class AdminCategories extends React.Component<InterfaceAdminCategoriesProps> {
 
 function mapSPAdminCategories(state: any): object {
 	return {
-		categoryList: state.ReducerFilms.categoryList,
-		loadCategoryListStatus: state.ReducerFilms.loadCategoryListStatus,
+		categoryList: state.ReducerCategories.categoryList,
+		loadCategoryListStatus: state.ReducerCategories.loadCategoryListStatus,
 	};
 }
 

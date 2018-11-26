@@ -29,8 +29,13 @@ app.get('/', (req, response) => {
 	response.sendFile(path.join(config.ROOT_BUILD + '/index.html'));
 });
 
-app.get('/api/categories', (req, response) => {
+app.get('/api/getCategoriesList', (req, response) => {
 	response.json(categories.getListAll());
+	response.end();
+});
+
+app.get('/api/getCategoriesTree', (req, response) => {
+	response.json(categories.getTreeAll());
 	response.end();
 });
 
