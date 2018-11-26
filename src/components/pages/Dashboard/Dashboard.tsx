@@ -1,6 +1,6 @@
 import * as React from 'react';
-import bem, {InterfaceBEMProps} from '../../hoc/bem';
-import Message from "../Message/Message";
+import bem, {InterfaceBEMProps} from '../../bem';
+import Message from "../../elememts/Message/Message";
 import './Dashboard.css';
 
 class Dashboard extends React.Component<InterfaceBEMProps> {

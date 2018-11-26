@@ -1,5 +1,5 @@
 import * as React from 'react';
-import bem, {InterfaceBEMProps} from "../../hoc/bem";
+import bem, {InterfaceBEMProps} from "../../bem";
 import './Message.css';
 
 export const MESS_TYPE_SUCCESS = 'success';
@@ -16,7 +16,7 @@ export interface InterfaceMessage extends InterfaceBEMProps {
 function Message(props: InterfaceMessage) {
 	return <div className={props.bemBlock('type', props.type || MESS_TYPE_SUCCESS)}>
 		{props.children}
-		</div>;
+	</div>;
 }
 
 export default bem(Message, 'message');

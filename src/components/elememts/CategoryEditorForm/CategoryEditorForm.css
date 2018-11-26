@@ -1,0 +1,38 @@
+.category-editor-form {
+}
+
+.category-editor-form__row {
+	display: flex;
+	flex-wrap: wrap
+}
+
+.category-editor-form__ceil {
+	width: 100%;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+.category-editor-form__ceil:first-child {
+	margin-top: 0;
+}
+
+.category-editor-form__ceil:last-child {
+	margin-bottom: 0;
+}
+
+.category-editor-form__label {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.category-editor-form__title {
+	display: inline-block;
+	width: 20%;
+}
+
+.category-editor-form__field {
+	display: block;
+	width: 80%;
+}
+

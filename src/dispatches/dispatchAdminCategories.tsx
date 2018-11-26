@@ -4,24 +4,31 @@ import {
 	ADMIN_CATEGORIES_SET_ITEM,
 	ADMIN_CATEGORIES_SET_LIST,
 	ADMIN_CATEGORIES_SET_LOAD_ITEM_STATUS,
-	ADMIN_CATEGORIES_SET_LOAD_LIST_STATUS
+	ADMIN_CATEGORIES_SET_LOAD_LIST_STATUS,
+	// ADMIN_CATEGORY_SET_SAVING_STATUS,
+	STATUS_LOADING_CATEGORY_ITEM_COMPLETE,
+	STATUS_LOADING_CATEGORY_ITEM_IN_PROCESS, STATUS_LOADING_CATEGORY_LIST_COMPLETE,
+	STATUS_LOADING_CATEGORY_LIST_IN_PROCESS,
+	// STATUS_SAVING_CATEGORY_COMPLETE, STATUS_SAVING_CATEGORY_IN_PROCESS,
 } from "../reducers/ReducerCategories";
 import {TypeDispatch} from "../types/InterfaceAction";
+import {InterfaceCategory} from "../types/InterfaceCategory";
 import {typeFunction} from "../types/Interfaces";
 
 export type  typeFunctionLoadListCategories = typeFunction;
 export type  typeFunctionLoadCategoryById = (categoryId: string) => void;
+export type  typeFunctionSaveCategory = (category: InterfaceCategory) => void;
 
 export function dispatchAdminCategories(dispatch: TypeDispatch) {
 	return {
 		loadListCategories: (): void => {
 			const url = encodeURI(`${BASE_URL_API}/api/categories`);
 
-			dispatch({type: ADMIN_CATEGORIES_SET_LOAD_LIST_STATUS, payload: false});
+			dispatch({type: ADMIN_CATEGORIES_SET_LOAD_LIST_STATUS, payload: STATUS_LOADING_CATEGORY_LIST_IN_PROCESS});
 
 			axios.get(url)
 				.then(response => dispatch({type: ADMIN_CATEGORIES_SET_LIST, payload: response.data}))
-				.then(() => dispatch({type: ADMIN_CATEGORIES_SET_LOAD_LIST_STATUS, payload: true}))
+				.then(() => dispatch({type: ADMIN_CATEGORIES_SET_LOAD_LIST_STATUS, payload: STATUS_LOADING_CATEGORY_LIST_COMPLETE}))
 				.catch(reason => {
 					console.log('reason: ', reason);
 					dispatch({type: ADMIN_CATEGORIES_SET_LOAD_LIST_STATUS, payload: true});
@@ -31,15 +38,37 @@ export function dispatchAdminCategories(dispatch: TypeDispatch) {
 		loadCategoryById: (categoryId: string): void => {
 			const url = encodeURI(`${BASE_URL_API}/api/getCategoryById/${categoryId}`);
 
-			dispatch({type: ADMIN_CATEGORIES_SET_LOAD_ITEM_STATUS, payload: false});
+			dispatch({type: ADMIN_CATEGORIES_SET_LOAD_ITEM_STATUS, payload: STATUS_LOADING_CATEGORY_ITEM_IN_PROCESS});
 
 			axios.get(url)
 				.then(response => dispatch({type: ADMIN_CATEGORIES_SET_ITEM, payload: response.data}))
-				.then(() => dispatch({type: ADMIN_CATEGORIES_SET_LOAD_ITEM_STATUS, payload: true}))
+				.then(() => dispatch({type: ADMIN_CATEGORIES_SET_LOAD_ITEM_STATUS, payload: STATUS_LOADING_CATEGORY_ITEM_COMPLETE}))
 				.catch(reason => {
 					console.log('reason: ', reason);
 				});
 		},
 
+		saveCategory(category: InterfaceCategory): void {
+			console.log('category:', category);
+
+			const url = encodeURI(`${BASE_URL_API}/api/saveCategoryById/${category.id}`);
+
+			const postParams = {
+				id: category.id,
+				name: category.name,
+				order: category.order,
+				parentId: category.parentId,
+			};
+
+			// dispatch({type: ADMIN_CATEGORY_SET_SAVING_STATUS, payload: STATUS_SAVING_CATEGORY_IN_PROCESS});
+			axios.post(url, postParams)
+				.then(response => {
+					console.log('response.data:', response.data);
+				})
+				// .then(() => dispatch({type: ADMIN_CATEGORY_SET_SAVING_STATUS, payload: STATUS_SAVING_CATEGORY_COMPLETE}))
+				.catch(reason => {
+					console.log('reason: ', reason);
+				});
+		}
 	};
 }

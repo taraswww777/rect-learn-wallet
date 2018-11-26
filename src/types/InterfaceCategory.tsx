@@ -1,9 +1,7 @@
 export interface InterfaceCategory {
-	id: string;
-	index: number;
+	id: number;
 	order: number;
 	name: string;
-	guid: string;
-	prentId?: string;
+	parentId?: number | 0;
 	child?: InterfaceCategory[]
 }

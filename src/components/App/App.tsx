@@ -1,6 +1,6 @@
 import * as React from 'react';
-import bem, {InterfaceBEMProps} from "../../hoc/bem";
-import LeftBar from "../LeftBar";
+import bem, {InterfaceBEMProps} from "../bem";
+import LeftBar from "../elememts/LeftBar";
 import './App.css';
 
 class App extends React.Component <InterfaceBEMProps> {

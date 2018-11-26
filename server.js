@@ -10,6 +10,7 @@ const morgan = require('morgan');
 const categories = require('./server/categories');
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('tiny')); // combined/tiny
 
 // для отдачи статичных файлов
@@ -33,8 +34,12 @@ app.get('/api/categories', (req, response) => {
 	response.end();
 });
 
-app.get('/api/getCategoryById/:id', (req, response) => {
+app.post('/api/saveCategoryById/:id', (req, response) => {
+	response.json(categories.saveById(req.params.id, req.body));
+	response.end();
+});
 
+app.get('/api/getCategoryById/:id', (req, response) => {
 	response.json(categories.getById(req.params.id));
 	response.end();
 });

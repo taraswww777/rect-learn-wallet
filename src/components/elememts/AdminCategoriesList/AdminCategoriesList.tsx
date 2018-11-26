@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {InterfaceCategory} from 'src/types/InterfaceCategory';
-import bem, {InterfaceBEMProps} from "../../../../hoc/bem";
+import bem, {InterfaceBEMProps} from "../../bem";
 import "./AdminCategoriesList.css";
 import AdminCategoriesListItem from "./AdminCategoriesListItem";
 

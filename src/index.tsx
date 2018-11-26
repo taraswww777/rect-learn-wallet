@@ -5,10 +5,11 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {applyMiddleware, createStore} from 'redux';
 import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import AdminCategories from "./components/Admin/AdminCategories/AdminCategories";
-import AdminCategoriesEditor from "./components/Admin/AdminCategories/AdminCategoriesEditor";
 import App from './components/App/App';
-import Dashboard from "./components/Dashboard/Dashboard";
+import AdminCategories from "./components/pages/AdminCategories";
+import AdminCategoriesEditor from "./components/pages/AdminCategoriesEditor";
+import Dashboard from "./components/pages/Dashboard/Dashboard";
+import DashboardAdmin from "./components/pages/DashboardAdmin/DashboardAdmin";
 import Reducers from "./reducers/index";
 import registerServiceWorker from './registerServiceWorker';
 
@@ -23,6 +24,7 @@ ReactDOM.render((
 					<Route path={'/'} exact={true} component={Dashboard}/>
 					<Route path={'/admin/categories/editor/:id'} component={AdminCategoriesEditor}/>
 					<Route path={'/admin/categories'} component={AdminCategories}/>
+					<Route path={'/admin'} component={DashboardAdmin}/>
 				</Switch>
 			</App>
 		</Router>

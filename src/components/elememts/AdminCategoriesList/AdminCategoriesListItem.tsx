@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {InterfaceCategory} from 'src/types/InterfaceCategory';
-import bem, {InterfaceBEMProps} from "../../../../hoc/bem";
-import LinkEditCategory from "../../../LinkEditCategory";
+import bem, {InterfaceBEMProps} from "../../bem";
+import LinkEditCategory from "../LinkEditCategory";
 import AdminCategoriesList from "./AdminCategoriesList";
 
 
