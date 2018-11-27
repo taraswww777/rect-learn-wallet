@@ -3,5 +3,9 @@ export interface InterfaceCategory {
 	order: number;
 	name: string;
 	parentId?: number | 0;
-	child?: InterfaceCategory[]
+}
+
+
+export interface InterfaceCategoryTree extends InterfaceCategory {
+	child?: InterfaceCategoryTree[]
 }

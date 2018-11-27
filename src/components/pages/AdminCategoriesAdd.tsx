@@ -5,46 +5,43 @@ import {RouteComponentProps, withRouter} from "react-router";
 import {
 	dispatchAdminCategories, typeFunctionAddCategory,
 	typeFunctionLoadCategoryById,
-	typeFunctionLoadListCategories,
+	typeFunctionLoadTreeCategories,
 	typeFunctionSaveCategory
 } from "../../dispatches/dispatchAdminCategories";
 import {
 	STATUS_SAVING_CATEGORY_COMPLETE,
 	STATUS_SAVING_CATEGORY_IN_PROCESS
 } from "../../reducers/ReducerCategories";
-import {InterfaceCategory} from "../../types/InterfaceCategory";
+import {InterfaceCategory, InterfaceCategoryTree} from "../../types/InterfaceCategory";
 import CategoryEditorForm from "../elememts/CategoryEditorForm/CategoryEditorForm";
 import Message from "../elememts/Message/Message";
 import PreLoader from "../elememts/PreLoader";
 
 
 export interface InterfaceAdminCategoriesAdd extends RouteComponentProps {
-	loadListCategories: typeFunctionLoadListCategories;
+	loadTreeCategories: typeFunctionLoadTreeCategories;
 	loadCategoryById: typeFunctionLoadCategoryById;
 	saveCategory: typeFunctionSaveCategory;
 	addCategory: typeFunctionAddCategory;
 	loadCategoryListStatus?: number;
 	loadCategoryItemStatus?: number;
 	savingCategoryStatus?: number;
-	categoryList?: InterfaceCategory[];
-	categoryItem?: InterfaceCategory | any;
+	categoryTree?: InterfaceCategoryTree[];
+	categoryItem?: InterfaceCategory | {};
 }
 
 class AdminCategoriesAdd extends React.Component<InterfaceAdminCategoriesAdd> {
 
 	public componentDidMount() {
-		this.props.loadListCategories();
+		this.props.loadTreeCategories();
 	}
 
 	public render() {
-		const parentCategoryId = _.get(this.props, 'match.params.id');
-
-		console.log('this.props.savingCategoryStatus', this.props.savingCategoryStatus);
+		const parentCategoryId = _.get(this.props, 'match.params.id') || 0;
 
 		return (
 			<div>
-				AdminCategoriesAdd
-				<h1>Add category</h1>
+				<h1>Add new category</h1>
 				{this.props.savingCategoryStatus === STATUS_SAVING_CATEGORY_IN_PROCESS ?
 					<PreLoader/>
 					:
@@ -53,10 +50,10 @@ class AdminCategoriesAdd extends React.Component<InterfaceAdminCategoriesAdd> {
 				}
 
 				<CategoryEditorForm
-					loadListCategories={this.props.loadListCategories}
+					categoryTree={this.props.categoryTree}
 					saveCategory={this.props.addCategory}
 					category={{name: '', order: '', parentId: parentCategoryId}}
-					categoryList={this.props.categoryList}/>
+				/>
 
 			</div>
 		);
@@ -66,7 +63,7 @@ class AdminCategoriesAdd extends React.Component<InterfaceAdminCategoriesAdd> {
 function mapSPAdminCategories(state: any): object {
 	return {
 		categoryItem: state.ReducerCategories.categoryItem,
-		categoryList: state.ReducerCategories.categoryList,
+		categoryTree: state.ReducerCategories.categoryTree,
 		loadCategoryItemStatus: state.ReducerCategories.loadCategoryItemStatus,
 		loadCategoryListStatus: state.ReducerCategories.loadCategoryListStatus,
 		savingCategoryStatus: state.ReducerCategories.savingCategoryStatus,

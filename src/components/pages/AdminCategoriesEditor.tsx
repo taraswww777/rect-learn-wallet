@@ -5,7 +5,7 @@ import {RouteComponentProps, withRouter} from "react-router";
 import {
 	dispatchAdminCategories,
 	typeFunctionLoadCategoryById,
-	typeFunctionLoadListCategories,
+	typeFunctionLoadTreeCategories,
 	typeFunctionSaveCategory
 } from "../../dispatches/dispatchAdminCategories";
 import {
@@ -13,28 +13,28 @@ import {
 	STATUS_SAVING_CATEGORY_COMPLETE,
 	STATUS_SAVING_CATEGORY_IN_PROCESS
 } from "../../reducers/ReducerCategories";
-import {InterfaceCategory} from "../../types/InterfaceCategory";
+import {InterfaceCategory, InterfaceCategoryTree} from "../../types/InterfaceCategory";
 import CategoryEditorForm from "../elememts/CategoryEditorForm/CategoryEditorForm";
 import Message from "../elememts/Message/Message";
 import PreLoader from "../elememts/PreLoader";
 
 
 export interface InterfaceAdminCategoriesEditorProps extends RouteComponentProps {
-	loadListCategories: typeFunctionLoadListCategories;
+	loadTreeCategories: typeFunctionLoadTreeCategories;
 	loadCategoryById: typeFunctionLoadCategoryById;
 	saveCategory: typeFunctionSaveCategory;
-	loadCategoryListStatus?: number;
+	loadCategoryTreeStatus?: number;
 	loadCategoryItemStatus?: number;
 	savingCategoryStatus?: number;
-	categoryList?: InterfaceCategory[];
-	categoryItem?: InterfaceCategory | any;
+	categoryTree?: InterfaceCategoryTree[];
+	categoryItem?: InterfaceCategory;
 }
 
 class AdminCategoriesEditor extends React.Component<InterfaceAdminCategoriesEditorProps> {
 
 	public componentDidMount() {
 		const categoryId = _.get(this.props, 'match.params.id');
-		this.props.loadListCategories();
+		this.props.loadTreeCategories();
 		this.props.loadCategoryById(categoryId);
 	}
 
@@ -49,14 +49,15 @@ class AdminCategoriesEditor extends React.Component<InterfaceAdminCategoriesEdit
 					{this.props.savingCategoryStatus === STATUS_SAVING_CATEGORY_IN_PROCESS ?
 						<PreLoader/>
 						:
-						this.props.savingCategoryStatus === STATUS_SAVING_CATEGORY_COMPLETE ?
-							<Message>Category "{this.props.categoryItem.name}" saving finished success</Message>
-							:
-							<CategoryEditorForm
-								saveCategory={this.props.saveCategory}
-								category={this.props.categoryItem}
-								categoryList={this.props.categoryList}/>
+						this.props.savingCategoryStatus === STATUS_SAVING_CATEGORY_COMPLETE &&
+						<Message>Category "{this.props.categoryItem.name}" saving finished success</Message>
 					}
+
+					<CategoryEditorForm
+						saveCategory={this.props.saveCategory}
+						category={this.props.categoryItem}
+						categoryTree={this.props.categoryTree}/>
+
 				</div>
 				}
 			</div>
@@ -67,9 +68,9 @@ class AdminCategoriesEditor extends React.Component<InterfaceAdminCategoriesEdit
 function mapSPAdminCategories(state: any): object {
 	return {
 		categoryItem: state.ReducerCategories.categoryItem,
-		categoryList: state.ReducerCategories.categoryList,
+		categoryTree: state.ReducerCategories.categoryTree,
 		loadCategoryItemStatus: state.ReducerCategories.loadCategoryItemStatus,
-		loadCategoryListStatus: state.ReducerCategories.loadCategoryListStatus,
+		loadCategoryTreeStatus: state.ReducerCategories.loadCategoryTreeStatus,
 		savingCategoryStatus: state.ReducerCategories.savingCategoryStatus,
 	};
 }

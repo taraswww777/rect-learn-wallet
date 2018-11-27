@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Link} from "react-router-dom";
 import styled from 'styled-components';
-import {InterfaceCategory} from "../../types/InterfaceCategory";
+import {InterfaceCategory} from "../../../types/InterfaceCategory";
 
 const ElemLinkAddCategory = styled(Link)`
 	color:green;
@@ -21,7 +21,6 @@ function LinkAddCategory(props: InterfaceLinkEditCategoryProps) {
 	let titleDefault = 'Add';
 	if (props.categoryParent) {
 		link += '/' + props.categoryParent.id;
-		titleDefault += ' for ' + props.categoryParent.name;
 	}
 
 	return <ElemLinkAddCategory

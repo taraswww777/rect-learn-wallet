@@ -6,7 +6,7 @@ const ElementSelect = styled.select`
 	display: inline-block;
 	padding: 5px 10px;
 	border-radius: 5px;
-	border: none;
+	border: 1px solid #000;
 `;
 
 
@@ -14,6 +14,7 @@ export interface InterfaceSelectOption {
 	value: string
 	title: string,
 	key: string | number,
+	disabled?: boolean,
 }
 
 export interface InterfaceSelectProps {
@@ -34,7 +35,8 @@ function Select(props: InterfaceSelectProps) {
 
 			{props.listOptions && props.listOptions.map((option) => (
 				<option
-					disabled={props.disabledOptionValue.indexOf(option.value) > -1}
+					disabled={option.disabled || false}
+					// disabled={props.disabledOptionValue.indexOf(option.value) > -1}
 					key={option.key} value={option.value}>{option.title}</option>
 			))}
 		</ElementSelect>

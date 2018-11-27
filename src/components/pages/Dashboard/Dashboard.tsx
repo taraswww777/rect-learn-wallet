@@ -5,8 +5,6 @@ import './Dashboard.css';
 
 class Dashboard extends React.Component<InterfaceBEMProps> {
 	public render() {
-		console.log('Dashboard this:', this);
-		// noinspection RequiredAttributes
 		return (
 			<div className={this.props.bemBlock()}>
 				<h1 className={this.props.bemElem('title')}>Dashboard</h1>

@@ -6,7 +6,7 @@ const ElementInput = styled.input`
 	display: inline-block;
 	padding: 5px 10px;
 	border-radius: 5px;
-	border: none;
+	border: 1px solid #000;
 `;
 
 interface InterfaceInputProps {

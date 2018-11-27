@@ -1,17 +1,16 @@
 import * as _ from 'lodash';
 import * as React from 'react';
-import {typeFunctionLoadListCategories, typeFunctionSaveCategory} from "../../../dispatches/dispatchAdminCategories";
-import {InterfaceCategory} from "../../../types/InterfaceCategory";
+import {typeFunctionSaveCategory} from "../../../dispatches/dispatchAdminCategories";
+import {InterfaceCategory, InterfaceCategoryTree} from "../../../types/InterfaceCategory";
 import bem, {InterfaceBEMProps} from "../../bem";
 import Input from '../form/Input';
 import CategoriesSelect from "./CategoriesSelect";
 import './CategoryEditorForm.css';
 
 export interface InterfaceCategoryEditorFormProps extends InterfaceBEMProps {
-	loadListCategories: typeFunctionLoadListCategories;
 	category: InterfaceCategory
 	saveCategory: typeFunctionSaveCategory,
-	categoryList: InterfaceCategory[] | any
+	categoryTree: InterfaceCategoryTree[] | []
 }
 
 
@@ -59,19 +58,19 @@ class CategoryEditorForm extends React.Component <InterfaceCategoryEditorFormPro
 						</label>
 					</div>
 
+					{this.props.categoryTree &&
 					<div className={this.props.bemElem('ceil')}>
-						{this.props.categoryList &&
 						<label className={this.props.bemElem('label')}>
 							<div className={this.props.bemElem('title')}>parent category</div>
 							<div className={this.props.bemElem('field')}>
 								<CategoriesSelect
 									name="parentId"
 									categoryCurrent={category}
-									categoryList={this.props.categoryList}
+									categoryTree={this.props.categoryTree}
 									onChange={this.onChange()}/>
 							</div>
-						</label>}
-					</div>
+						</label>
+					</div>}
 
 					<div className={this.props.bemElem('ceil')}>
 						<button className={this.props.bemElem('btn-save')}>save</button>
@@ -93,10 +92,6 @@ class CategoryEditorForm extends React.Component <InterfaceCategoryEditorFormPro
 		return (event: Event | any): void => {
 			event.preventDefault();
 			this.props.saveCategory(this.state.category);
-
-			if (this.props.loadListCategories) {
-				setTimeout(() => this.props.loadListCategories(), 1000);
-			}
 		}
 	}
 }

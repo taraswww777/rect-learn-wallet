@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {typeOnDelCatById} from "../../dispatches/dispatchAdminCategories";
-import {InterfaceCategory} from "../../types/InterfaceCategory";
+import {typeOnDelCatById} from "../../../dispatches/dispatchAdminCategories";
+import {InterfaceCategory} from "../../../types/InterfaceCategory";
 
 const ElemLinkDelCategory = styled.span`
 	color:red;
@@ -29,9 +29,6 @@ function onClickConfirm(onDelCatById: typeOnDelCatById, category: InterfaceCateg
 function LinkDelCategory(props: InterfaceLinkDelCategoryProps) {
 
 	let titleDefault = 'Del';
-	if (props.category) {
-		titleDefault += ' ' + props.category.name;
-	}
 
 	return <ElemLinkDelCategory onClick={onClickConfirm(props.onDelCatById, props.category)}>{props.children || titleDefault} </ElemLinkDelCategory>;
 }

@@ -1,31 +1,34 @@
 import * as React from 'react';
-import {InterfaceCategory} from 'src/types/InterfaceCategory';
+import {InterfaceCategory, InterfaceCategoryTree} from 'src/types/InterfaceCategory';
 import Select, {InterfaceSelectOption} from "../form/Select";
 
 
 interface InterfaceAdminCategoriesList {
 	categoryCurrent: InterfaceCategory;
-	categoryList: InterfaceCategory[];
+	categoryTree: InterfaceCategoryTree[];
 	onChange: (event: any) => void;
 	name: string
 }
 
 
-function genCategoriesSelectOptions(categoryList: InterfaceCategory[], level: number = 0): any {
+function genCategoriesSelectOptions(categoryList: InterfaceCategoryTree[], currentId: number = 0, level: number = 0): any {
 	let resultOptions: InterfaceSelectOption[] = [];
 	let prefix = ' - ';
 
-	categoryList.map((category: InterfaceCategory) => {
-		resultOptions.push({
-			key: category.id,
-			title: prefix.repeat(level) + category.name,
-			value: String(category.id),
-		});
+	categoryList.map((category: InterfaceCategoryTree) => {
+		if (currentId !== category.id) {
 
-		if (category.child) {
-			level++;
-			resultOptions.push(...genCategoriesSelectOptions(category.child, level));
-			level--;
+			resultOptions.push({
+				key: category.id,
+				title: prefix.repeat(level) + category.name,
+				value: String(category.id),
+			});
+
+			if (category.child) {
+				level++;
+				resultOptions.push(...genCategoriesSelectOptions(category.child, currentId, level));
+				level--;
+			}
 		}
 
 	});
@@ -40,7 +43,7 @@ function CategoriesSelect(props: InterfaceAdminCategoriesList) {
 
 	options = [
 		...options,
-		...genCategoriesSelectOptions(props.categoryList),
+		...genCategoriesSelectOptions(props.categoryTree, props.categoryCurrent.id),
 	];
 
 	return (

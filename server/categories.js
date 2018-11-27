@@ -1,6 +1,8 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const _ = require('lodash');
+
 const PATH_FILE_CATEGORY = path.join(__dirname, '../data/categories.json');
 
 
@@ -32,22 +34,36 @@ function delById(listCategory = [], categoryId) {
 			}
 		});
 	}
-	return res.filter(el => el);
+
+	return _.compact(res)
 }
 
 function changeById(listCategory = [], categoryData) {
-	listCategory[categoryData.id] = categoryData;
-	return listCategory.filter(el => el);
+	let res = [];
+	listCategory.map(category => {
+		if (category.id === categoryData.id) {
+			res[category.id] = {
+				id: parseInt(categoryData.id),
+				name: categoryData.name,
+				order: categoryData.order,
+				parentId: parseInt(categoryData.parentId),
+			}
+		} else {
+			res[category.id] = category;
+		}
+	});
+	return _.compact(res);
 }
 
 function saveListToJsonFile(listCategory = []) {
-	let stream = fs.createWriteStream(PATH_FILE_CATEGORY);
-	let res = false;
-	stream.once('open', (fd) => {
-		res = stream.write(JSON.stringify(listCategory));
-		stream.end();
+	let listSave = [];
+	listCategory.map(cat => {
+		if (cat.child) {
+			delete cat.child;
+		}
+		listSave.push(cat)
 	});
-	return res;
+	fs.writeFileSync(PATH_FILE_CATEGORY, JSON.stringify(listSave));
 }
 
 function listToTree(listCategory = [], parentId = 0) {
@@ -62,7 +78,7 @@ function listToTree(listCategory = [], parentId = 0) {
 		});
 	}
 
-	return res.filter(el => el);
+	return _.compact(res);
 }
 
 function getNewId(listCategory = []) {
@@ -81,11 +97,11 @@ function addToList(listCategory = [], dataCategory) {
 
 	listCategory[id] = {
 		id: id,
-		...dataCategory,
+		name: dataCategory.name,
 		order: parseInt(dataCategory.order),
 		parentId: parseInt(dataCategory.parentId)
 	};
-	return listCategory;
+	return _.compact(listCategory);
 }
 
 module.exports.getListAll = function () {
@@ -115,7 +131,11 @@ module.exports.delById = function (categoryId) {
 };
 
 module.exports.saveById = function (categoryId, dataCategory) {
+	// console.log('loadListCategories(): ', loadListCategories());
+	// changeById(loadListCategories(), dataCategory);
+	// saveListToJsonFile(loadListCategories());
 	saveListToJsonFile(changeById(loadListCategories(), dataCategory));
+	// saveListToJsonFile(changeById(loadListCategories(), dataCategory));
 
 	return {
 		message: `Success saving "${dataCategory.name}"`,
@@ -125,9 +145,7 @@ module.exports.saveById = function (categoryId, dataCategory) {
 };
 
 module.exports.addCategory = function (dataCategory) {
-
 	saveListToJsonFile(addToList(loadListCategories(), dataCategory));
-
 	return {
 		message: `Success adding "${dataCategory.name}"`,
 		messageType: 'success',

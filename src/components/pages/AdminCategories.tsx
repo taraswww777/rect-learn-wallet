@@ -1,13 +1,11 @@
 import * as React from 'react';
 import {connect} from "react-redux";
 import styled from "styled-components";
-import {dispatchAdminCategories, typeOnDelCatById} from "../../dispatches/dispatchAdminCategories";
-import {
-	STATUS_LOADING_CATEGORY_LIST_COMPLETE
-} from "../../reducers/ReducerCategories";
-import {typeFunction} from "../../types/Interfaces";
-import AdminCategoriesList from "../elememts/AdminCategoriesList/AdminCategoriesList";
-import LinkAddCategory from "../elememts/LinkAddCategory";
+import {dispatchAdminCategories, typeFunctionLoadTreeCategories, typeOnDelCatById} from "../../dispatches/dispatchAdminCategories";
+import {STATUS_LOADING_CATEGORY_TREE_COMPLETE} from "../../reducers/ReducerCategories";
+import {InterfaceCategoryTree} from "../../types/InterfaceCategory";
+import AdminCategoriesTree from "../elememts/AdminCategoriesTree";
+import LinkAddCategory from "../elememts/links/LinkAddCategory";
 import Message from '../elememts/Message/Message';
 import PreLoader from "../elememts/PreLoader";
 
@@ -17,18 +15,18 @@ const ElementAdminCategoriesList = styled.div`width: 100%;`;
 
 
 export interface InterfaceAdminCategoriesProps {
-	loadListCategories: typeFunction;
-	loadCategoryListStatus?: number;
+	loadTreeCategories: typeFunctionLoadTreeCategories;
+	loadCategoryTreeStatus?: number;
 	deletingCategoryStatus?: number;
 	deletingCategoryReport?: any;
 	onDelCatById: typeOnDelCatById;
-	categoryList?: [];
+	categoryTree?: InterfaceCategoryTree[];
 }
 
 class AdminCategories extends React.Component<InterfaceAdminCategoriesProps> {
 
 	public componentDidMount() {
-		this.props.loadListCategories();
+		this.props.loadTreeCategories();
 	}
 
 	public render() {
@@ -41,11 +39,12 @@ class AdminCategories extends React.Component<InterfaceAdminCategoriesProps> {
 				</ol>
 
 				<ElementAdminCategoriesList>
-					{this.props.loadCategoryListStatus !== STATUS_LOADING_CATEGORY_LIST_COMPLETE ? <PreLoader/>
-						: this.props.categoryList ? <AdminCategoriesList
+					{this.props.loadCategoryTreeStatus !== STATUS_LOADING_CATEGORY_TREE_COMPLETE ? <PreLoader/>
+						: this.props.categoryTree ?
+							<AdminCategoriesTree
 								deletingCategoryReport={this.props.deletingCategoryReport}
 								deletingCategoryStatus={this.props.deletingCategoryStatus}
-								onDelCatById={this.props.onDelCatById} categoryList={this.props.categoryList}/>
+								onDelCatById={this.props.onDelCatById} categoryList={this.props.categoryTree}/>
 							: <Message type={'danger'}>Empty categoryList</Message>}
 				</ElementAdminCategoriesList>
 			</BlockAdminCategories>
@@ -55,10 +54,10 @@ class AdminCategories extends React.Component<InterfaceAdminCategoriesProps> {
 
 function mapSPAdminCategories(state: any): object {
 	return {
-		categoryList: state.ReducerCategories.categoryList,
+		categoryTree: state.ReducerCategories.categoryTree,
 		deletingCategoryReport: state.ReducerCategories.deletingCategoryReport,
 		deletingCategoryStatus: state.ReducerCategories.deletingCategoryStatus,
-		loadCategoryListStatus: state.ReducerCategories.loadCategoryListStatus,
+		loadCategoryTreeStatus: state.ReducerCategories.loadCategoryTreeStatus,
 	};
 }
 
