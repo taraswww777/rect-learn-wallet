@@ -106,6 +106,7 @@ function addCategory(dispatch: TypeDispatch) {
 		axios.post(url, postParams)
 			.then(response => dispatch({type: ADMIN_CATEGORY_SET_SAVING_REPORT, payload: response.data}))
 			.then(() => dispatch({type: ADMIN_CATEGORY_SET_SAVING_STATUS, payload: STATUS_SAVING_CATEGORY_COMPLETE}))
+			.then(() => loadTreeCategories(dispatch)())
 			.catch(reason => {
 				console.error('reason: ', reason);
 			});
