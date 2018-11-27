@@ -2,6 +2,7 @@ import * as React from 'react';
 import {InterfaceCategoryTree} from 'src/types/InterfaceCategory';
 import styled from "styled-components";
 import {typeOnDelCatById} from "../../dispatches/dispatchAdminCategories";
+import ChangeOrder from "./ChangeOrder";
 import LinkAddCategory from "./links/LinkAddCategory";
 import LinkDelCategory from "./links/LinkDelCategory";
 import LinkEditCategory from "./links/LinkEditCategory";
@@ -56,6 +57,7 @@ function AdminCategoriesTree(props: InterfaceAdminCategoriesList) {
 				<ElAdminCategoriesTreeItem className="ElAdminCategoriesTreeItem" key={category.id}>
 					<ElAdminCategoriesTreeItemInfo>
 						<ElAdminCategoriesTreeItemName>{category.order}: {category.name}</ElAdminCategoriesTreeItemName>
+						<ChangeOrder category={category}/>
 						<LinkEditCategory category={category}/>
 						<LinkAddCategory categoryParent={category}/>
 						<LinkDelCategory onDelCatById={props.onDelCatById} category={category}/>
