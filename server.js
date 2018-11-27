@@ -44,6 +44,11 @@ app.post('/api/saveCategoryById/:id', (req, response) => {
 	response.end();
 });
 
+app.post('/api/addCategory', (req, response) => {
+	response.json(categories.addCategory(req.body));
+	response.end();
+});
+
 app.get('/api/getCategoryById/:id', (req, response) => {
 	response.json(categories.getById(req.params.id));
 	response.end();

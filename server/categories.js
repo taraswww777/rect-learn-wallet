@@ -65,6 +65,29 @@ function listToTree(listCategory = [], parentId = 0) {
 	return res.filter(el => el);
 }
 
+function getNewId(listCategory = []) {
+	let max = 0;
+	if (listCategory) {
+		listCategory.map(category => {
+			max = max < category.id ? category.id : max;
+		});
+	}
+
+	return max + 1;
+}
+
+function addToList(listCategory = [], dataCategory) {
+	let id = getNewId(listCategory);
+
+	listCategory[id] = {
+		id: id,
+		...dataCategory,
+		order: parseInt(dataCategory.order),
+		parentId: parseInt(dataCategory.parentId)
+	};
+	return listCategory;
+}
+
 module.exports.getListAll = function () {
 	return loadListCategories();
 };
@@ -96,6 +119,17 @@ module.exports.saveById = function (categoryId, dataCategory) {
 
 	return {
 		message: `Success saving "${dataCategory.name}"`,
+		messageType: 'success',
+		dataCategory: dataCategory,
+	};
+};
+
+module.exports.addCategory = function (dataCategory) {
+
+	saveListToJsonFile(addToList(loadListCategories(), dataCategory));
+
+	return {
+		message: `Success adding "${dataCategory.name}"`,
 		messageType: 'success',
 		dataCategory: dataCategory,
 	};

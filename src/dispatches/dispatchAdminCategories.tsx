@@ -25,6 +25,7 @@ import {typeFunction} from "../types/Interfaces";
 export type typeFunctionLoadListCategories = typeFunction;
 export type typeFunctionLoadCategoryById = (categoryId: string) => void;
 export type typeFunctionSaveCategory = (category: InterfaceCategory) => void;
+export type typeFunctionAddCategory = (category: InterfaceCategory) => void;
 export type typeOnDelCatById = (category: InterfaceCategory) => void;
 
 export function dispatchAdminCategories(dispatch: TypeDispatch) {
@@ -62,6 +63,26 @@ export function dispatchAdminCategories(dispatch: TypeDispatch) {
 
 			const postParams = {
 				id: category.id,
+				name: category.name,
+				order: category.order,
+				parentId: category.parentId,
+			};
+
+			dispatch({type: ADMIN_CATEGORY_SET_SAVING_STATUS, payload: STATUS_SAVING_CATEGORY_IN_PROCESS});
+			axios.post(url, postParams)
+				.then(response => {
+					console.log('response.data:', response.data);
+				})
+				.then(() => dispatch({type: ADMIN_CATEGORY_SET_SAVING_STATUS, payload: STATUS_SAVING_CATEGORY_COMPLETE}))
+				.catch(reason => {
+					console.log('reason: ', reason);
+				});
+		},
+
+		addCategory(category: InterfaceCategory): void {
+			const url = encodeURI(`${BASE_URL_API}/api/addCategory`);
+
+			const postParams = {
 				name: category.name,
 				order: category.order,
 				parentId: category.parentId,

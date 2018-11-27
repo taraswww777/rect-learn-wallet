@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import * as React from 'react';
-import {typeFunctionSaveCategory} from "../../../dispatches/dispatchAdminCategories";
+import {typeFunctionLoadListCategories, typeFunctionSaveCategory} from "../../../dispatches/dispatchAdminCategories";
 import {InterfaceCategory} from "../../../types/InterfaceCategory";
 import bem, {InterfaceBEMProps} from "../../bem";
 import Input from '../form/Input';
@@ -8,6 +8,7 @@ import CategoriesSelect from "./CategoriesSelect";
 import './CategoryEditorForm.css';
 
 export interface InterfaceCategoryEditorFormProps extends InterfaceBEMProps {
+	loadListCategories: typeFunctionLoadListCategories;
 	category: InterfaceCategory
 	saveCategory: typeFunctionSaveCategory,
 	categoryList: InterfaceCategory[] | any
@@ -92,6 +93,10 @@ class CategoryEditorForm extends React.Component <InterfaceCategoryEditorFormPro
 		return (event: Event | any): void => {
 			event.preventDefault();
 			this.props.saveCategory(this.state.category);
+
+			if (this.props.loadListCategories) {
+				setTimeout(() => this.props.loadListCategories(), 1000);
+			}
 		}
 	}
 }

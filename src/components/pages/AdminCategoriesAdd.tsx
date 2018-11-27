@@ -3,13 +3,12 @@ import * as React from 'react';
 import {connect} from "react-redux";
 import {RouteComponentProps, withRouter} from "react-router";
 import {
-	dispatchAdminCategories,
+	dispatchAdminCategories, typeFunctionAddCategory,
 	typeFunctionLoadCategoryById,
 	typeFunctionLoadListCategories,
 	typeFunctionSaveCategory
 } from "../../dispatches/dispatchAdminCategories";
 import {
-	STATUS_LOADING_CATEGORY_ITEM_COMPLETE,
 	STATUS_SAVING_CATEGORY_COMPLETE,
 	STATUS_SAVING_CATEGORY_IN_PROCESS
 } from "../../reducers/ReducerCategories";
@@ -19,10 +18,11 @@ import Message from "../elememts/Message/Message";
 import PreLoader from "../elememts/PreLoader";
 
 
-export interface InterfaceAdminCategoriesEditorProps extends RouteComponentProps {
+export interface InterfaceAdminCategoriesAdd extends RouteComponentProps {
 	loadListCategories: typeFunctionLoadListCategories;
 	loadCategoryById: typeFunctionLoadCategoryById;
 	saveCategory: typeFunctionSaveCategory;
+	addCategory: typeFunctionAddCategory;
 	loadCategoryListStatus?: number;
 	loadCategoryItemStatus?: number;
 	savingCategoryStatus?: number;
@@ -30,35 +30,34 @@ export interface InterfaceAdminCategoriesEditorProps extends RouteComponentProps
 	categoryItem?: InterfaceCategory | any;
 }
 
-class AdminCategoriesEditor extends React.Component<InterfaceAdminCategoriesEditorProps> {
+class AdminCategoriesAdd extends React.Component<InterfaceAdminCategoriesAdd> {
 
 	public componentDidMount() {
-		const categoryId = _.get(this.props, 'match.params.id');
 		this.props.loadListCategories();
-		this.props.loadCategoryById(categoryId);
 	}
 
 	public render() {
+		const parentCategoryId = _.get(this.props, 'match.params.id');
+
+		console.log('this.props.savingCategoryStatus', this.props.savingCategoryStatus);
 
 		return (
 			<div>
-				{this.props.loadCategoryItemStatus !== STATUS_LOADING_CATEGORY_ITEM_COMPLETE ?
+				AdminCategoriesAdd
+				<h1>Add category</h1>
+				{this.props.savingCategoryStatus === STATUS_SAVING_CATEGORY_IN_PROCESS ?
 					<PreLoader/>
-					: this.props.categoryItem && <div>
-					<h1>Edit category "{this.props.categoryItem.name}"</h1>
-					{this.props.savingCategoryStatus === STATUS_SAVING_CATEGORY_IN_PROCESS ?
-						<PreLoader/>
-						:
-						this.props.savingCategoryStatus === STATUS_SAVING_CATEGORY_COMPLETE ?
-							<Message>Category "{this.props.categoryItem.name}" saving finished success</Message>
-							:
-							<CategoryEditorForm
-								saveCategory={this.props.saveCategory}
-								category={this.props.categoryItem}
-								categoryList={this.props.categoryList}/>
-					}
-				</div>
+					:
+					this.props.savingCategoryStatus === STATUS_SAVING_CATEGORY_COMPLETE &&
+					<Message>Category add finished success</Message>
 				}
+
+				<CategoryEditorForm
+					loadListCategories={this.props.loadListCategories}
+					saveCategory={this.props.addCategory}
+					category={{name: '', order: '', parentId: parentCategoryId}}
+					categoryList={this.props.categoryList}/>
+
 			</div>
 		);
 	}
@@ -75,4 +74,4 @@ function mapSPAdminCategories(state: any): object {
 }
 
 
-export default withRouter(connect(mapSPAdminCategories, dispatchAdminCategories)(AdminCategoriesEditor));
+export default withRouter(connect(mapSPAdminCategories, dispatchAdminCategories)(AdminCategoriesAdd));

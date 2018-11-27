@@ -7,6 +7,7 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import App from './components/App/App';
 import AdminCategories from "./components/pages/AdminCategories";
+import AdminCategoriesAdd from "./components/pages/AdminCategoriesAdd";
 import AdminCategoriesEditor from "./components/pages/AdminCategoriesEditor";
 import Dashboard from "./components/pages/Dashboard/Dashboard";
 import DashboardAdmin from "./components/pages/DashboardAdmin/DashboardAdmin";
@@ -22,8 +23,8 @@ ReactDOM.render((
 			<App>
 				<Switch>
 					<Route path={'/'} exact={true} component={Dashboard}/>
-					<Route path={'/admin/categories/add/:id'} component={AdminCategoriesEditor}/>
-					<Route path={'/admin/categories/add'} component={AdminCategoriesEditor}/>
+					<Route path={'/admin/categories/add/:id'} component={AdminCategoriesAdd}/>
+					<Route path={'/admin/categories/add'} component={AdminCategoriesAdd}/>
 					<Route path={'/admin/categories/editor/:id'} component={AdminCategoriesEditor}/>
 					<Route path={'/admin/categories'} component={AdminCategories}/>
 					<Route path={'/admin'} component={DashboardAdmin}/>
