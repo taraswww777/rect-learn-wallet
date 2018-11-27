@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import * as React from 'react';
+import {RouteComponentProps, withRouter} from "react-router";
 import {typeFunctionSaveCategory} from "../../../dispatches/dispatchAdminCategories";
 import {InterfaceCategory, InterfaceCategoryTree} from "../../../types/InterfaceCategory";
 import bem, {InterfaceBEMProps} from "../../bem";
@@ -7,7 +8,7 @@ import Input from '../form/Input';
 import CategoriesSelect from "./CategoriesSelect";
 import './CategoryEditorForm.css';
 
-export interface InterfaceCategoryEditorFormProps extends InterfaceBEMProps {
+export interface InterfaceCategoryEditorFormProps extends InterfaceBEMProps, RouteComponentProps {
 	category: InterfaceCategory
 	saveCategory: typeFunctionSaveCategory,
 	categoryTree: InterfaceCategoryTree[] | []
@@ -74,6 +75,7 @@ class CategoryEditorForm extends React.Component <InterfaceCategoryEditorFormPro
 
 					<div className={this.props.bemElem('ceil')}>
 						<button className={this.props.bemElem('btn-save')}>save</button>
+						<button onClick={this.onSaveBack()} className={this.props.bemElem('btn-save')}>save and back</button>
 					</div>
 				</div>
 				}
@@ -94,6 +96,14 @@ class CategoryEditorForm extends React.Component <InterfaceCategoryEditorFormPro
 			this.props.saveCategory(this.state.category);
 		}
 	}
+
+	public onSaveBack() {
+		return (event: Event | any): void => {
+			event.preventDefault();
+			this.props.saveCategory(this.state.category);
+			this.props.history.goBack();
+		}
+	}
 }
 
-export default bem(CategoryEditorForm, 'category-editor-form');
+export default bem(withRouter(CategoryEditorForm), 'category-editor-form');
