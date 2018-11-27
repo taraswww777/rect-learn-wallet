@@ -23,9 +23,7 @@ function LinkAddCategory(props: InterfaceLinkEditCategoryProps) {
 		link += '/' + props.categoryParent.id;
 	}
 
-	return <ElemLinkAddCategory
-		target="_blank"
-		to={link}>{props.children || titleDefault} </ElemLinkAddCategory>;
+	return <ElemLinkAddCategory to={link}>{props.children || titleDefault} </ElemLinkAddCategory>;
 }
 
 export default LinkAddCategory;
