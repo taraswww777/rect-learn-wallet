@@ -5,9 +5,12 @@ const _ = require('lodash');
 
 const PATH_FILE_CATEGORY = path.join(__dirname, '../data/categories.json');
 
+function sortByOrder(listCategory = []) {
+	return _._.sortBy(listCategory, ['order'], ['asc']);
+}
 
 function loadListCategories() {
-	return require(PATH_FILE_CATEGORY);
+	return sortByOrder(require(PATH_FILE_CATEGORY));
 }
 
 function getCategoryByIdFromList(listCategory = [], categoryId) {
@@ -78,7 +81,7 @@ function listToTree(listCategory = [], parentId = 0) {
 		});
 	}
 
-	return _.compact(res);
+	return sortByOrder(_.compact(res));
 }
 
 function getNewId(listCategory = []) {
@@ -131,11 +134,7 @@ module.exports.delById = function (categoryId) {
 };
 
 module.exports.saveById = function (categoryId, dataCategory) {
-	// console.log('loadListCategories(): ', loadListCategories());
-	// changeById(loadListCategories(), dataCategory);
-	// saveListToJsonFile(loadListCategories());
 	saveListToJsonFile(changeById(loadListCategories(), dataCategory));
-	// saveListToJsonFile(changeById(loadListCategories(), dataCategory));
 
 	return {
 		message: `Success saving "${dataCategory.name}"`,
