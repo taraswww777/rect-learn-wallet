@@ -1,12 +1,9 @@
 import * as React from 'react';
 import styled from "styled-components";
+import {typeFunctionSaveAccount} from "../../dispatches/dispatchAdminAccounts";
 import {typeFunctionSaveCategory} from "../../dispatches/dispatchAdminCategories";
+import {InterfaceAccount} from "../../types/InterfaceAccount";
 import {InterfaceCategory} from "../../types/InterfaceCategory";
-
-interface InterfaceChangeOrderProps {
-	category: InterfaceCategory;
-	saveCategory: typeFunctionSaveCategory;
-}
 
 const ElChangeOrder = styled.div`
 	text-align: center;
@@ -33,31 +30,37 @@ const ElChangeOrderCurrent = styled.div`
 	padding: 5px;
 `;
 
-function onPlus(saveCategory: typeFunctionSaveCategory, category: InterfaceCategory) {
+function onPlus(onSave: typeFunctionSaveCategory, element: InterfaceCategory | InterfaceAccount) {
 	return (event: any) => {
 		event.preventDefault();
-		let newCategory = category;
-		newCategory.order++;
-		saveCategory(newCategory);
+		let newElement = element;
+		newElement.order++;
+		onSave(newElement);
 	}
 }
 
 
-function onMinus(saveCategory: typeFunctionSaveCategory, category: InterfaceCategory) {
+function onMinus(onSave: typeFunctionSaveCategory, element: InterfaceCategory | InterfaceAccount) {
 	return (event: any) => {
 		event.preventDefault();
-		let newCategory = category;
-		newCategory.order--;
-		saveCategory(newCategory);
+		let newElement = element;
+		newElement.order--;
+		onSave(newElement);
 	}
+}
+
+
+interface InterfaceChangeOrderProps {
+	element: InterfaceCategory | InterfaceAccount;
+	onSave: typeFunctionSaveCategory | typeFunctionSaveAccount;
 }
 
 function ChangeOrder(props: InterfaceChangeOrderProps) {
 	return (
 		<ElChangeOrder>
-			<ElChangeOrderPlus onClick={onPlus(props.saveCategory, props.category)}>+</ElChangeOrderPlus>
-			<ElChangeOrderCurrent>{props.category.order}</ElChangeOrderCurrent>
-			<ElChangeOrderMinus onClick={onMinus(props.saveCategory, props.category)}>-</ElChangeOrderMinus>
+			<ElChangeOrderPlus onClick={onPlus(props.onSave, props.element)}>+</ElChangeOrderPlus>
+			<ElChangeOrderCurrent>{props.element.order}</ElChangeOrderCurrent>
+			<ElChangeOrderMinus onClick={onMinus(props.onSave, props.element)}>-</ElChangeOrderMinus>
 		</ElChangeOrder>
 	);
 }

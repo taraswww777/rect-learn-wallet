@@ -2,8 +2,7 @@ import * as _ from 'lodash';
 import * as React from 'react';
 import {connect} from "react-redux";
 import {RouteComponentProps, withRouter} from "react-router";
-import {
-	dispatchAdminCategories,
+import dispatchAdminCategories, {
 	typeFunctionLoadCategoryById,
 	typeFunctionLoadTreeCategories,
 	typeFunctionSaveCategory

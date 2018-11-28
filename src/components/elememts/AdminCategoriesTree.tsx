@@ -58,7 +58,7 @@ function AdminCategoriesTree(props: InterfaceAdminCategoriesList) {
 				<ElAdminCategoriesTreeItem className="ElAdminCategoriesTreeItem" key={category.id}>
 					<ElAdminCategoriesTreeItemInfo>
 						<ElAdminCategoriesTreeItemName>{category.order}: {category.name}</ElAdminCategoriesTreeItemName>
-						<ChangeOrder category={category} saveCategory={props.saveCategory}/>
+						<ChangeOrder element={category} onSave={props.saveCategory}/>
 						<LinkEditCategory category={category}/>
 						<LinkAddCategory categoryParent={category}/>
 						<LinkDelCategory onDelCatById={props.onDelCatById} category={category}/>

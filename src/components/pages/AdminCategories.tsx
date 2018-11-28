@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {connect} from "react-redux";
 import styled from "styled-components";
-import {
-	dispatchAdminCategories,
+import dispatchAdminCategories, {
 	typeFunctionLoadTreeCategories,
 	typeFunctionSaveCategory,
 	typeOnDelCatById
@@ -31,10 +30,6 @@ export interface InterfaceAdminCategoriesProps {
 
 class AdminCategories extends React.Component<InterfaceAdminCategoriesProps> {
 
-	public componentDidMount() {
-		this.props.loadTreeCategories();
-	}
-
 	public render() {
 		return (
 			<BlockAdminCategories>
@@ -57,6 +52,10 @@ class AdminCategories extends React.Component<InterfaceAdminCategoriesProps> {
 				</ElementAdminCategoriesList>
 			</BlockAdminCategories>
 		);
+	}
+
+	public componentDidMount() {
+		this.props.loadTreeCategories();
 	}
 }
 

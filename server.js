@@ -6,6 +6,7 @@ import morgan from 'morgan';
 const app = express();
 
 const categories = require('./server/categories');
+const accounts = require('./server/accounts');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -27,6 +28,7 @@ app.get('/', (req, response) => {
 	response.sendFile(path.join(config.ROOT_BUILD + '/index.html'));
 });
 
+// Category
 app.get('/api/getCategoriesList', (req, response) => {
 	response.json(categories.getListAll());
 	response.end();
@@ -54,6 +56,32 @@ app.get('/api/getCategoryById/:id', (req, response) => {
 
 app.get('/api/delCategoryById/:id', (req, response) => {
 	response.json(categories.delById(req.params.id));
+	response.end();
+});
+
+//  Account
+app.get('/api/getAccountsList', (req, response) => {
+	response.json(accounts.getListAll());
+	response.end();
+});
+
+app.post('/api/addAccount', (req, response) => {
+	response.json(accounts.addAccount(req.body));
+	response.end();
+});
+
+app.post('/api/saveAccountById/:id', (req, response) => {
+	response.json(accounts.saveById(req.params.id, req.body));
+	response.end();
+});
+
+app.get('/api/getAccountById/:id', (req, response) => {
+	response.json(accounts.getById(req.params.id));
+	response.end();
+});
+
+app.get('/api/delAccountById/:id', (req, response) => {
+	response.json(accounts.delById(req.params.id));
 	response.end();
 });
 

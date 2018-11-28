@@ -22,7 +22,7 @@ import {typeFunction} from "../types/Interfaces";
 
 export type typeFunctionLoadListCategories = typeFunction;
 export type typeFunctionLoadTreeCategories = typeFunction;
-export type typeFunctionLoadCategoryById = (categoryId: string) => void;
+export type typeFunctionLoadCategoryById = (categoryId: number) => void;
 export type typeFunctionSaveCategory = (category: InterfaceCategory) => void;
 export type typeFunctionAddCategory = (category: InterfaceCategory) => void;
 export type typeOnDelCatById = (category: InterfaceCategory) => void;
@@ -33,7 +33,7 @@ function loadTreeCategories(dispatch: TypeDispatch) {
 
 		dispatch({type: ADMIN_CATEGORIES_SET_LOAD_TREE_STATUS, payload: STATUS_LOADING_CATEGORY_TREE_IN_PROCESS});
 
-		axios.get(url)
+		return axios.get(url)
 			.then(response => dispatch({type: ADMIN_CATEGORIES_SET_TREE, payload: response.data}))
 			.then(() => dispatch({type: ADMIN_CATEGORIES_SET_LOAD_TREE_STATUS, payload: STATUS_LOADING_CATEGORY_TREE_COMPLETE}))
 			.catch(reason => {
@@ -54,7 +54,7 @@ function loadListCategories(dispatch: TypeDispatch) {
 			.then(() => dispatch({type: ADMIN_CATEGORIES_SET_LOAD_LIST_STATUS, payload: STATUS_LOADING_CATEGORY_LIST_COMPLETE}))
 			.catch(reason => {
 				console.error('reason: ', reason);
-				dispatch({type: ADMIN_CATEGORIES_SET_LOAD_LIST_STATUS, payload: true});
+				dispatch({type: ADMIN_CATEGORIES_SET_LOAD_LIST_STATUS, payload: STATUS_LOADING_CATEGORY_LIST_COMPLETE});
 			});
 	}
 }
@@ -74,7 +74,7 @@ function onDelCatById(dispatch: TypeDispatch) {
 }
 
 function loadCategoryById(dispatch: TypeDispatch) {
-	return (categoryId: string) => {
+	return (categoryId: number) => {
 		const url = encodeURI(`${BASE_URL_API}/api/getCategoryById/${categoryId}`);
 
 		dispatch({type: ADMIN_CATEGORIES_SET_LOAD_ITEM_STATUS, payload: STATUS_LOADING_CATEGORY_ITEM_IN_PROCESS});
@@ -126,7 +126,7 @@ function saveCategory(dispatch: TypeDispatch) {
 		dispatch({type: ADMIN_CATEGORY_SET_SAVING_STATUS, payload: STATUS_SAVING_CATEGORY_IN_PROCESS});
 		axios.post(url, postParams)
 			.then(response => dispatch({type: ADMIN_CATEGORY_SET_SAVING_REPORT, payload: response.data}))
-			.then(() => setTimeout(loadTreeCategories(dispatch), 500))// КОГДА ПРАВИЛЬНО ОБНОВЛЯТЬ СПИСОК ???
+			.then(() => loadTreeCategories(dispatch)())
 			.then(() => dispatch({type: ADMIN_CATEGORY_SET_SAVING_STATUS, payload: STATUS_SAVING_CATEGORY_COMPLETE}))
 			.catch(reason => {
 				console.error('reason: ', reason);
@@ -134,7 +134,7 @@ function saveCategory(dispatch: TypeDispatch) {
 	}
 }
 
-export function dispatchAdminCategories(dispatch: TypeDispatch) {
+export default (dispatch: TypeDispatch) => {
 	return {
 		addCategory: addCategory(dispatch),
 		loadCategoryById: loadCategoryById(dispatch),

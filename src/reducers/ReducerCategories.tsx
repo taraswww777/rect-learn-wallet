@@ -30,7 +30,7 @@ const stateDefault = {
 	categoryList: [],
 };
 
-export function ReducerCategories(state = stateDefault, action: InterfaceAction) {
+export default (state = stateDefault, action: InterfaceAction) => {
 	switch (action.type) {
 
 		case ADMIN_CATEGORIES_SET_LIST:

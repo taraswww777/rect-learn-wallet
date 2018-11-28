@@ -36,6 +36,7 @@ function LeftBar() {
 		<ElLeftBar>
 			<ElLeftBarItem><ElLeftBarLink to={'/'}>Home</ElLeftBarLink></ElLeftBarItem>
 			<ElLeftBarItem><ElLeftBarLink to={'/admin/categories'}>Cat</ElLeftBarLink></ElLeftBarItem>
+			<ElLeftBarItem><ElLeftBarLink to={'/admin/accounts'}>Accounts</ElLeftBarLink></ElLeftBarItem>
 		</ElLeftBar>
 	);
 }

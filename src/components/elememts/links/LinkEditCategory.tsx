@@ -17,7 +17,7 @@ interface InterfaceLinkEditCategoryProps {
 }
 // TODO: CREATE
 function LinkEditCategory(props: InterfaceLinkEditCategoryProps) {
-	return <ElemLinkEditCategory to={`/admin/categories/editor/${props.category.id}`}>{props.children || 'Edit'}</ElemLinkEditCategory>;
+	return <ElemLinkEditCategory to={`/admin/categories/edit/${props.category.id}`}>{props.children || 'Edit'}</ElemLinkEditCategory>;
 }
 
 export default LinkEditCategory;
