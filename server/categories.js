@@ -9,8 +9,18 @@ function sortByOrder(listCategory = []) {
 	return _._.sortBy(listCategory, ['order'], ['asc']);
 }
 
+function loadFileCategories() {
+	let content = fs.readFileSync(PATH_FILE_CATEGORY, "utf8");
+
+	try {
+		return JSON.parse(content)
+	} catch (e) {
+		return [];
+	}
+}
+
 function loadListCategories() {
-	return sortByOrder(require(PATH_FILE_CATEGORY));
+	return sortByOrder(loadFileCategories());
 }
 
 function getCategoryByIdFromList(listCategory = [], categoryId) {
