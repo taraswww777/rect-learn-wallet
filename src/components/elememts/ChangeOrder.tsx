@@ -1,12 +1,11 @@
 import * as React from 'react';
-import {connect} from "react-redux";
 import styled from "styled-components";
-import {dispatchAdminCategories, typeFunctionSaveCategory} from "../../dispatches/dispatchAdminCategories";
+import {typeFunctionSaveCategory} from "../../dispatches/dispatchAdminCategories";
 import {InterfaceCategory} from "../../types/InterfaceCategory";
 
 interface InterfaceChangeOrderProps {
-	category: InterfaceCategory,
-	saveCategory: typeFunctionSaveCategory
+	category: InterfaceCategory;
+	saveCategory: typeFunctionSaveCategory;
 }
 
 const ElChangeOrder = styled.div`
@@ -63,10 +62,4 @@ function ChangeOrder(props: InterfaceChangeOrderProps) {
 	);
 }
 
-function mapSPChangeOrder(state: any): object {
-	return {
-		categoryItem: state.ReducerCategories.categoryItem,
-	};
-}
-
-export default connect(mapSPChangeOrder, dispatchAdminCategories)(ChangeOrder);
+export default ChangeOrder;

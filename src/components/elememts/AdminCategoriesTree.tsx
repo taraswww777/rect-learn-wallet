@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {InterfaceCategoryTree} from 'src/types/InterfaceCategory';
 import styled from "styled-components";
-import {typeOnDelCatById} from "../../dispatches/dispatchAdminCategories";
+import {typeFunctionSaveCategory, typeOnDelCatById} from "../../dispatches/dispatchAdminCategories";
 import ChangeOrder from "./ChangeOrder";
 import LinkAddCategory from "./links/LinkAddCategory";
 import LinkDelCategory from "./links/LinkDelCategory";
@@ -13,6 +13,7 @@ interface InterfaceAdminCategoriesList {
 	onDelCatById: typeOnDelCatById;
 	deletingCategoryReport: any;
 	deletingCategoryStatus: any;
+	saveCategory: typeFunctionSaveCategory;
 }
 
 
@@ -57,7 +58,7 @@ function AdminCategoriesTree(props: InterfaceAdminCategoriesList) {
 				<ElAdminCategoriesTreeItem className="ElAdminCategoriesTreeItem" key={category.id}>
 					<ElAdminCategoriesTreeItemInfo>
 						<ElAdminCategoriesTreeItemName>{category.order}: {category.name}</ElAdminCategoriesTreeItemName>
-						<ChangeOrder category={category}/>
+						<ChangeOrder category={category} saveCategory={props.saveCategory}/>
 						<LinkEditCategory category={category}/>
 						<LinkAddCategory categoryParent={category}/>
 						<LinkDelCategory onDelCatById={props.onDelCatById} category={category}/>
@@ -68,7 +69,8 @@ function AdminCategoriesTree(props: InterfaceAdminCategoriesList) {
 							deletingCategoryReport={props.deletingCategoryReport}
 							deletingCategoryStatus={props.deletingCategoryStatus}
 							onDelCatById={props.onDelCatById}
-							categoryList={category.child}/>
+							categoryList={category.child}
+							saveCategory={props.saveCategory}/>
 					</ElAdminCategoriesTreeItemChild>}
 
 				</ElAdminCategoriesTreeItem>

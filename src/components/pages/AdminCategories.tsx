@@ -1,7 +1,12 @@
 import * as React from 'react';
 import {connect} from "react-redux";
 import styled from "styled-components";
-import {dispatchAdminCategories, typeFunctionLoadTreeCategories, typeOnDelCatById} from "../../dispatches/dispatchAdminCategories";
+import {
+	dispatchAdminCategories,
+	typeFunctionLoadTreeCategories,
+	typeFunctionSaveCategory,
+	typeOnDelCatById
+} from "../../dispatches/dispatchAdminCategories";
 import {STATUS_LOADING_CATEGORY_TREE_COMPLETE} from "../../reducers/ReducerCategories";
 import {InterfaceCategoryTree} from "../../types/InterfaceCategory";
 import AdminCategoriesTree from "../elememts/AdminCategoriesTree";
@@ -16,6 +21,7 @@ const ElementAdminCategoriesList = styled.div`width: 100%;`;
 
 export interface InterfaceAdminCategoriesProps {
 	loadTreeCategories: typeFunctionLoadTreeCategories;
+	saveCategory: typeFunctionSaveCategory;
 	loadCategoryTreeStatus?: number;
 	deletingCategoryStatus?: number;
 	deletingCategoryReport?: any;
@@ -44,7 +50,9 @@ class AdminCategories extends React.Component<InterfaceAdminCategoriesProps> {
 							<AdminCategoriesTree
 								deletingCategoryReport={this.props.deletingCategoryReport}
 								deletingCategoryStatus={this.props.deletingCategoryStatus}
-								onDelCatById={this.props.onDelCatById} categoryList={this.props.categoryTree}/>
+								onDelCatById={this.props.onDelCatById}
+								categoryList={this.props.categoryTree}
+								saveCategory={this.props.saveCategory}/>
 							: <Message type={'danger'}>Empty categoryList</Message>}
 				</ElementAdminCategoriesList>
 			</BlockAdminCategories>
