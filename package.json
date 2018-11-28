@@ -7,7 +7,7 @@
 		"build": "react-scripts-ts build",
 		"test": "react-scripts-ts test --env=jsdom",
 		"eject": "react-scripts-ts eject",
-		"server": "nodemon server",
+		"server": "nodemon --exec babel-node server",
 		"lint": "tslint --project tsconfig.json -c tslint.json src/**/*.tsx --fix"
 	},
 	"dependencies": {
@@ -42,6 +42,8 @@
 		"@types/rebass__grid": "6.0.1",
 		"@types/styled-components": "4.1.1",
 		"axios": "0.18.0",
+		"babel-cli": "^6.26.0",
+		"babel-preset-env": "^1.7.0",
 		"emotion": "9.2.12",
 		"jest": "23.6.0",
 		"morgan": "^1.9.1",
@@ -52,5 +54,12 @@
 		"tslint-config-prettier": "1.16.0",
 		"tslint-react": "3.6.0",
 		"typescript": "3.1.6"
+	},
+	"nodemonConfig": {
+		"ignore": [
+			"data/*",
+			"node_modules/*",
+			"public/*"
+		]
 	}
 }

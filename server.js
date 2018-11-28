@@ -1,10 +1,9 @@
-'use strict';
+import config from './server-config';
+import express from 'express';
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const config = require('./server-config');
 const app = express();
-const morgan = require('morgan');
 
 const categories = require('./server/categories');
 
