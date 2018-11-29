@@ -24,12 +24,14 @@ const URL_ACCOUNTS_GET_LIST = `${BASE_URL_API}/api/accountGetList`;
 const URL_ACCOUNTS_SAVE_BY_ID = `${BASE_URL_API}/api/accountSaveById`;
 const URL_ACCOUNTS_DEL_BY_ID = `${BASE_URL_API}/api/accountDelById`;
 const URL_ACCOUNTS_GET_BY_ID = `${BASE_URL_API}/api/accountGetById`;
+const URL_ACCOUNTS_ADD = `${BASE_URL_API}/api/accountAdd`;
 
 function addAccount(dispatch: TypeDispatch) {
 	return (account: InterfaceAccount) => {
 
-		const url = encodeURI(`${BASE_URL_API}/api/addAccount`);
+		const url = encodeURI(URL_ACCOUNTS_ADD);
 		const postParams = {
+			amount: account.amount,
 			name: account.name,
 			order: account.order,
 		};
@@ -66,6 +68,7 @@ function saveAccount(dispatch: TypeDispatch) {
 		const url = encodeURI(`${URL_ACCOUNTS_SAVE_BY_ID}/${account.id}`);
 
 		const postParams = {
+			amount: account.amount,
 			id: account.id,
 			name: account.name,
 			order: account.order,

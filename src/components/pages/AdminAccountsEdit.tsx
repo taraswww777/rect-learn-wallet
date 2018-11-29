@@ -41,7 +41,9 @@ class AdminAccountsEdit extends React.Component<InterfaceAdminCategoriesEditorPr
 						<Message>Category "{this.props.accountItem.name}" saving finished success</Message>
 					}
 
-					<AccountEditorForm account={this.props.accountItem} onSave={this.props.saveAccount}/>
+					<AccountEditorForm
+						disabled={true}
+						account={this.props.accountItem} onSave={this.props.saveAccount}/>
 
 				</div>
 				}

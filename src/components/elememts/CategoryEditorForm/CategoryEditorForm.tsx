@@ -37,7 +37,6 @@ class CategoryEditorForm extends React.Component <InterfaceCategoryEditorFormPro
 							<div className={this.props.bemElem('title')}>name</div>
 							<div className={this.props.bemElem('field')}>
 								<Input
-									type="text"
 									name="name"
 									value={category.name}
 									onChange={this.onChange()}/>
@@ -51,7 +50,6 @@ class CategoryEditorForm extends React.Component <InterfaceCategoryEditorFormPro
 							<div className={this.props.bemElem('title')}>order</div>
 							<div className={this.props.bemElem('field')}>
 								<Input
-									type="text"
 									name="order"
 									value={category.order}
 									onChange={this.onChange()}/>

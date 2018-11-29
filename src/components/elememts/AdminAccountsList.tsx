@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {InterfaceCategoryTree} from 'src/types/InterfaceCategory';
 import styled from "styled-components";
 import {fnAccountsDeleteById, fnAccountsSave} from "../../dispatches/dispatchAdminAccounts";
 import {InterfaceAccount} from "../../types/InterfaceAccount";
@@ -32,7 +31,7 @@ const ElAdminAdminAccountsListItemName = styled.div`
 	flex-grow: 1;
 `;
 
-interface InterfaceAdminCategoriesList {
+interface InterfaceAdminAccountsListProps {
 	accountsList: InterfaceAccount[];
 	deleteAccountById: fnAccountsDeleteById;
 	deletingAccountReport?: any;
@@ -40,14 +39,14 @@ interface InterfaceAdminCategoriesList {
 	saveAccount: fnAccountsSave;
 }
 
-function AdminAccountsList(props: InterfaceAdminCategoriesList) {
+function AdminAccountsList(props: InterfaceAdminAccountsListProps) {
 	return (
 		<ElAdminAdminAccountsList className="ElAdminAdminAccountsList">
-			{props.accountsList.map((account: InterfaceCategoryTree) => (
+			{props.accountsList.map((account: InterfaceAccount) => (
 
 				<ElAdminAdminAccountsListItem className="ElAdminAdminAccountsListItem" key={account.id}>
 					<ElAdminAdminAccountsListItemInfo>
-						<ElAdminAdminAccountsListItemName>{account.order}: {account.name}</ElAdminAdminAccountsListItemName>
+						<ElAdminAdminAccountsListItemName>{account.name}</ElAdminAdminAccountsListItemName>
 						<ChangeOrder element={account} onSave={props.saveAccount}/>
 						<LinkEditAccount account={account}/>
 						<LinkDelAccount deleteAccountById={props.deleteAccountById} account={account}/>

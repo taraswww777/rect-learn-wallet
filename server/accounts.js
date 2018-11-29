@@ -22,41 +22,11 @@ function changeAccount(listAccounts = [], account) {
 	let accountPrepare = {
 		id: parseInt(account.id),
 		order: parseInt(account.order),
+		amount: parseFloat(account.amount) || 0,
 		name: account.name,
 	};
 	return changeElemInList(listAccounts, accountPrepare)
 }
-
-// function getCategoryByIdFromList(listCategory = [], categoryId) {
-// 	let res = false;
-// 	categoryId = parseInt(categoryId);
-// 	listCategory.map(category => {
-// 		if (!res) {
-// 			res = category.id === categoryId && category;
-// 		}
-// 	});
-// 	return res;
-// }
-
-
-// function deleteListElemById(listCategory = [], categoryId) {
-// 	let res = listCategory;
-// 	categoryId = String(categoryId);
-// 	if (listCategory) {
-// 		listCategory.map((category, index) => {
-// 			if (String(category.id) === categoryId) {
-// 				console.log('delete res[index];', index);
-// 				delete res[index];
-// 			} else if (category.child) {
-// 				category.child = deleteListElemById(category.child, categoryId);
-// 			}
-// 		});
-// 	}
-//
-// 	return _.compact(res)
-// }
-
-
 
 module.exports.getListAll = () => sortListByOrderAsc(loadAccountsList());
 

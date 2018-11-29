@@ -14,24 +14,20 @@ const ElChangeOrder = styled.div`
 const ElChangeOrderUp = styled.span`
 	cursor: pointer;
 	padding: 5px;
-  border-radius: 50%;
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  opacity: 0.5;
-  background: url("${imgArrowUp}") center center/cover no-repeat;
-  
-	    
+	border-radius: 50%;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	opacity: 0.5;
+	background: url("${imgArrowUp}") center center/cover no-repeat;
+	margin: 0 5px;
+
 	&:hover{
 		opacity: 1;
 	}
-
 `;
 const ElChangeOrderDown = styled(ElChangeOrderUp)`
 	transform: rotate(180deg);
-`;
-const ElChangeOrderCurrent = styled.div`
-	padding: 5px;
 `;
 
 function onDown(onSave: typeFunctionSaveCategory, element: InterfaceCategory | InterfaceAccount) {
@@ -63,7 +59,6 @@ function ChangeOrder(props: InterfaceChangeOrderProps) {
 	return (
 		<ElChangeOrder>
 			<ElChangeOrderUp onClick={onUp(props.onSave, props.element)}>-</ElChangeOrderUp>
-			<ElChangeOrderCurrent>{props.element.order}</ElChangeOrderCurrent>
 			<ElChangeOrderDown onClick={onDown(props.onSave, props.element)}>+</ElChangeOrderDown>
 		</ElChangeOrder>
 	);

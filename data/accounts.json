@@ -1,1 +1,1 @@
-[{"id":1,"name":"Наличные","order":0},{"id":2,"order":-1,"name":"Карточка"}]
+[{"id":1,"order":-3,"amount":5,"name":"Наличные"},{"id":2,"order":-1,"amount":10,"name":"Карточка"},{"id":6,"order":-3,"amount":33242,"name":"сбер"}]

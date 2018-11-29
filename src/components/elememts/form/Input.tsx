@@ -10,7 +10,7 @@ const ElementInput = styled.input`
 `;
 
 interface InterfaceInputProps {
-	type: string,
+	disabled?: boolean,
 	name: string,
 	value: string | number,
 	onChange: (event: any) => void;
@@ -20,7 +20,7 @@ interface InterfaceInputProps {
 function Input(props: InterfaceInputProps) {
 	return (
 		<ElementInput
-			type={props.type}
+			disabled={props.disabled}
 			name={props.name}
 			value={props.value}
 			onChange={props.onChange}

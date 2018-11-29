@@ -17,6 +17,7 @@ const StyledAccountEditorFormBtn = styled.button``;
 export interface InterfaceCategoryEditorFormProps {
 	account: InterfaceAccount | any;
 	onSave: fnAccountsSave;
+	disabled?: boolean;
 }
 
 
@@ -41,7 +42,6 @@ class AccountEditorForm extends React.Component <InterfaceCategoryEditorFormProp
 							<StyledAccountEditorFormTitle>name</StyledAccountEditorFormTitle>
 							<StyledAccountEditorFormField>
 								<Input
-									type="text"
 									name="name"
 									value={account.name}
 									onChange={this.onChange()}/>
@@ -55,7 +55,6 @@ class AccountEditorForm extends React.Component <InterfaceCategoryEditorFormProp
 							<StyledAccountEditorFormTitle>order</StyledAccountEditorFormTitle>
 							<StyledAccountEditorFormField>
 								<Input
-									type="text"
 									name="order"
 									value={account.order}
 									onChange={this.onChange()}/>
@@ -63,6 +62,18 @@ class AccountEditorForm extends React.Component <InterfaceCategoryEditorFormProp
 						</StyledAccountEditorFormLabel>
 					</StyledAccountEditorFormCeil>
 
+					<StyledAccountEditorFormCeil>
+						<StyledAccountEditorFormLabel>
+							<StyledAccountEditorFormTitle>amount</StyledAccountEditorFormTitle>
+							<StyledAccountEditorFormField>
+								<Input
+									disabled={this.props.disabled}
+									name="amount"
+									value={account.amount}
+									onChange={this.onChange()}/>
+							</StyledAccountEditorFormField>
+						</StyledAccountEditorFormLabel>
+					</StyledAccountEditorFormCeil>
 
 					<StyledAccountEditorFormCeil>
 						<StyledAccountEditorFormBtn>save</StyledAccountEditorFormBtn>
