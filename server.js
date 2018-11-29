@@ -7,6 +7,7 @@ const app = express();
 
 const categories = require('./server/categories');
 const accounts = require('./server/accounts');
+const records = require('./server/records');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -85,6 +86,33 @@ app.get('/api/accountDelById/:id', (req, response) => {
 	response.end();
 });
 
+// records
+app.get('/api/recordsGetList', (req, response) => {
+	response.json(records.getListAll());
+	response.end();
+});
+
+app.post('/api/recordsAdd', (req, response) => {
+	response.json(records.addRecord(req.body));
+	response.end();
+});
+
+app.post('/api/recordsUpdateById/:id', (req, response) => {
+	response.json(records.updateById(req.params.id, req.body));
+	response.end();
+});
+
+app.get('/api/recordsGetById/:id', (req, response) => {
+	response.json(records.getById(req.params.id));
+	response.end();
+});
+
+app.get('/api/recordsDelById/:id', (req, response) => {
+	response.json(records.delById(req.params.id));
+	response.end();
+});
+
+// any
 app.get('/*', (req, response) => {
 	console.log('404 req.params: ', req.params);
 	response.send('404');

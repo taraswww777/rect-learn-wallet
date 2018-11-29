@@ -14,6 +14,8 @@ import AdminCategoriesAdd from "./components/pages/AdminCategoriesAdd";
 import AdminCategoriesEditor from "./components/pages/AdminCategoriesEditor";
 import Dashboard from "./components/pages/Dashboard";
 import DashboardAdmin from "./components/pages/DashboardAdmin";
+import Records from "./components/pages/Records";
+import RecordsAdd from "./components/pages/RecordsAdd";
 import Reducers from "./reducers/index";
 import registerServiceWorker from './registerServiceWorker';
 
@@ -33,6 +35,8 @@ ReactDOM.render((
 					<Route path={'/admin/accounts/add'} component={AdminAccountsAdd}/>
 					<Route path={'/admin/accounts'} component={AdminAccounts}/>
 					<Route path={'/admin'} component={DashboardAdmin}/>
+					<Route path={'/records/add'} component={RecordsAdd}/>
+					<Route path={'/records'} component={Records}/>
 				</Switch>
 			</App>
 		</Router>
