@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import * as React from 'react';
 import styled from "styled-components";
-import {typeFunctionSaveAccount} from "../../dispatches/dispatchAdminAccounts";
+import {fnAccountsSave} from "../../dispatches/dispatchAdminAccounts";
 import {InterfaceAccount} from "../../types/InterfaceAccount";
 import Input from "./form/Input";
 
@@ -16,7 +16,7 @@ const StyledAccountEditorFormBtn = styled.button``;
 
 export interface InterfaceCategoryEditorFormProps {
 	account: InterfaceAccount | any;
-	onSave: typeFunctionSaveAccount;
+	onSave: fnAccountsSave;
 }
 
 

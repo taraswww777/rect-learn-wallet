@@ -20,8 +20,10 @@ import {InterfaceAccount} from "../types/InterfaceAccount";
 import {TypeDispatch} from "../types/InterfaceAction";
 import {typeFunction} from "../types/Interfaces";
 
-const URL_GET_ACCOUNTS_LIST = `${BASE_URL_API}/api/getAccountsList`;
-const URL_SAVE_ACCOUNT_BY_ID = `${BASE_URL_API}/api/saveAccountById`;
+const URL_ACCOUNTS_GET_LIST = `${BASE_URL_API}/api/accountGetList`;
+const URL_ACCOUNTS_SAVE_BY_ID = `${BASE_URL_API}/api/accountSaveById`;
+const URL_ACCOUNTS_DEL_BY_ID = `${BASE_URL_API}/api/accountDelById`;
+const URL_ACCOUNTS_GET_BY_ID = `${BASE_URL_API}/api/accountGetById`;
 
 function addAccount(dispatch: TypeDispatch) {
 	return (account: InterfaceAccount) => {
@@ -44,7 +46,7 @@ function addAccount(dispatch: TypeDispatch) {
 
 function loadAccountsList(dispatch: TypeDispatch) {
 	return () => {
-		const url = encodeURI(URL_GET_ACCOUNTS_LIST);
+		const url = encodeURI(URL_ACCOUNTS_GET_LIST);
 
 		dispatch({type: ADMIN_ACCOUNTS_SET_LOAD_LIST_STATUS, payload: STATUS_LOADING_ACCOUNTS_LIST_IN_PROCESS});
 
@@ -61,7 +63,7 @@ function loadAccountsList(dispatch: TypeDispatch) {
 function saveAccount(dispatch: TypeDispatch) {
 	return (account: InterfaceAccount) => {
 
-		const url = encodeURI(`${URL_SAVE_ACCOUNT_BY_ID}/${account.id}`);
+		const url = encodeURI(`${URL_ACCOUNTS_SAVE_BY_ID}/${account.id}`);
 
 		const postParams = {
 			id: account.id,
@@ -83,7 +85,7 @@ function saveAccount(dispatch: TypeDispatch) {
 
 function loadAccountById(dispatch: TypeDispatch) {
 	return (accountId: number) => {
-		const url = encodeURI(`${BASE_URL_API}/api/getAccountById/${accountId}`);
+		const url = encodeURI(`${URL_ACCOUNTS_GET_BY_ID}/${accountId}`);
 		dispatch({type: ADMIN_ACCOUNTS_SET_LOAD_ITEM_STATUS, payload: STATUS_LOADING_ACCOUNT_ITEM_IN_PROCESS});
 
 		return axios.get(url)
@@ -97,9 +99,11 @@ function loadAccountById(dispatch: TypeDispatch) {
 
 function deleteAccountById(dispatch: TypeDispatch) {
 	return (accountId: number) => {
-		const url = encodeURI(`${BASE_URL_API}/api/delAccountById/${accountId}`);
+		const url = encodeURI(`${URL_ACCOUNTS_DEL_BY_ID}/${accountId}`);
+
 		dispatch({type: ADMIN_ACCOUNT_SET_DELETING_STATUS, payload: STATUS_DELETING_ACCOUNT_IN_PROCESS});
-		axios.get(url)
+
+		return axios.get(url)
 			.then(response => dispatch({type: ADMIN_ACCOUNT_SET_DELETING_REPORT, payload: response.data}))
 			.then(() => dispatch({type: ADMIN_ACCOUNT_SET_DELETING_STATUS, payload: STATUS_DELETING_ACCOUNT_COMPLETE}))
 			.then(() => loadAccountsList(dispatch)())
@@ -109,12 +113,11 @@ function deleteAccountById(dispatch: TypeDispatch) {
 	}
 }
 
-export type typeFunctionAddAccount = (account: InterfaceAccount) => void;
-export type typeFunctionSaveAccount = (account: InterfaceAccount) => void;
-export type typeFunctionLoadAccountsList = typeFunction;
-export type typeFunctionLoadAccountById = (accountId: number) => void;
-export type typeDeleteAccountById = (accountId: number) => void;
-
+export type fnAccountsAdd = (account: InterfaceAccount) => void;
+export type fnAccountsSave = (account: InterfaceAccount) => void;
+export type fnAccountsLoadList = typeFunction;
+export type fnAccountsLoadById = (accountId: number) => void;
+export type fnAccountsDeleteById = (accountId: number) => void;
 
 export default (dispatch: TypeDispatch) => ({
 	addAccount: addAccount(dispatch),

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import logo from '../../logo.svg';
+import logo from '../../img/logo.svg';
 
 const ElemPreLoader = styled.div`
 	text-decoration: none;

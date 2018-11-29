@@ -2,9 +2,9 @@ import * as React from 'react';
 import {connect} from "react-redux";
 import styled from "styled-components";
 import dispatchAdminAccounts, {
-	typeDeleteAccountById,
-	typeFunctionLoadAccountsList,
-	typeFunctionSaveAccount
+	fnAccountsDeleteById,
+	fnAccountsLoadList,
+	fnAccountsSave
 } from "../../dispatches/dispatchAdminAccounts";
 import {STATUS_LOADING_ACCOUNTS_LIST_COMPLETE} from "../../reducers/ReducerAccounts";
 import {InterfaceAccount} from "../../types/InterfaceAccount";
@@ -22,9 +22,9 @@ const StyledAdminAccountsList = styled.div`display: flex; width: 100%;`;
 interface InterfaceAdminAccountsProps {
 	accountsList?: InterfaceAccount[];
 	loadAccountsListStatus?: number;
-	loadAccountList: typeFunctionLoadAccountsList;
-	saveAccount: typeFunctionSaveAccount;
-	deleteAccountById: typeDeleteAccountById;
+	loadAccountList: fnAccountsLoadList;
+	saveAccount: fnAccountsSave;
+	deleteAccountById: fnAccountsDeleteById;
 }
 
 
@@ -63,7 +63,6 @@ class AdminAccounts extends React.Component <InterfaceAdminAccountsProps> {
 }
 
 function mapStateAdminAccounts(state: any): object {
-	console.log('state:', state);
 	return {
 		accountsList: state.ReducerAccounts.accountsList,
 		loadAccountsListStatus: state.ReducerAccounts.loadAccountsListStatus,

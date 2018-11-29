@@ -4,7 +4,7 @@ import {
 	getElemFromListById,
 	loadFromJsonFile,
 	saveToJsonFile,
-	sortListByOrder
+	sortListByOrderAsc
 } from "./lib";
 import path from "path";
 
@@ -58,7 +58,7 @@ function changeAccount(listAccounts = [], account) {
 
 
 
-module.exports.getListAll = () => sortListByOrder(loadAccountsList());
+module.exports.getListAll = () => sortListByOrderAsc(loadAccountsList());
 
 module.exports.getById = (accountId) => {
 	return getElemFromListById(loadAccountsList(), accountId);

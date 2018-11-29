@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {typeDeleteAccountById} from "../../../dispatches/dispatchAdminAccounts";
+import {fnAccountsDeleteById} from "../../../dispatches/dispatchAdminAccounts";
 import {InterfaceAccount} from "../../../types/InterfaceAccount";
 
 const ElemLinkDelAccount = styled.span`
@@ -15,10 +15,10 @@ const ElemLinkDelAccount = styled.span`
 interface InterfaceLinkDelCategoryProps {
 	children?: any;
 	account: InterfaceAccount;
-	deleteAccountById: typeDeleteAccountById;
+	deleteAccountById: fnAccountsDeleteById;
 }
 
-function onClickConfirm(deleteAccount: typeDeleteAccountById, account: InterfaceAccount) {
+function onClickConfirm(deleteAccount: fnAccountsDeleteById, account: InterfaceAccount) {
 	return () => {
 		if (confirm(`Delete account "${account.name}"?`)) {
 			deleteAccount(account.id);

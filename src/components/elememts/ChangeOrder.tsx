@@ -1,7 +1,8 @@
 import * as React from 'react';
 import styled from "styled-components";
-import {typeFunctionSaveAccount} from "../../dispatches/dispatchAdminAccounts";
+import {fnAccountsSave} from "../../dispatches/dispatchAdminAccounts";
 import {typeFunctionSaveCategory} from "../../dispatches/dispatchAdminCategories";
+import imgArrowUp from '../../img/arrow-up.svg';
 import {InterfaceAccount} from "../../types/InterfaceAccount";
 import {InterfaceCategory} from "../../types/InterfaceCategory";
 
@@ -9,28 +10,31 @@ const ElChangeOrder = styled.div`
 	text-align: center;
 	display: flex;
 	align-items: center;
-	border:1px solid #000;
 `;
-const ElChangeOrderPlus = styled.div`
+const ElChangeOrderUp = styled.span`
 	cursor: pointer;
 	padding: 5px;
-  border:1px solid #000;
   border-radius: 50%;
   display: inline-block;
   width: 30px;
   height: 30px;
+  opacity: 0.5;
+  background: url("${imgArrowUp}") center center/cover no-repeat;
+  
 	    
 	&:hover{
-		font-weight: bold;
-		background:rgba(255,255,255,0.5);
+		opacity: 1;
 	}
+
 `;
-const ElChangeOrderMinus = styled(ElChangeOrderPlus)``;
+const ElChangeOrderDown = styled(ElChangeOrderUp)`
+	transform: rotate(180deg);
+`;
 const ElChangeOrderCurrent = styled.div`
 	padding: 5px;
 `;
 
-function onPlus(onSave: typeFunctionSaveCategory, element: InterfaceCategory | InterfaceAccount) {
+function onDown(onSave: typeFunctionSaveCategory, element: InterfaceCategory | InterfaceAccount) {
 	return (event: any) => {
 		event.preventDefault();
 		let newElement = element;
@@ -40,7 +44,7 @@ function onPlus(onSave: typeFunctionSaveCategory, element: InterfaceCategory | I
 }
 
 
-function onMinus(onSave: typeFunctionSaveCategory, element: InterfaceCategory | InterfaceAccount) {
+function onUp(onSave: typeFunctionSaveCategory, element: InterfaceCategory | InterfaceAccount) {
 	return (event: any) => {
 		event.preventDefault();
 		let newElement = element;
@@ -52,15 +56,15 @@ function onMinus(onSave: typeFunctionSaveCategory, element: InterfaceCategory | 
 
 interface InterfaceChangeOrderProps {
 	element: InterfaceCategory | InterfaceAccount;
-	onSave: typeFunctionSaveCategory | typeFunctionSaveAccount;
+	onSave: typeFunctionSaveCategory | fnAccountsSave;
 }
 
 function ChangeOrder(props: InterfaceChangeOrderProps) {
 	return (
 		<ElChangeOrder>
-			<ElChangeOrderPlus onClick={onPlus(props.onSave, props.element)}>+</ElChangeOrderPlus>
+			<ElChangeOrderUp onClick={onUp(props.onSave, props.element)}>-</ElChangeOrderUp>
 			<ElChangeOrderCurrent>{props.element.order}</ElChangeOrderCurrent>
-			<ElChangeOrderMinus onClick={onMinus(props.onSave, props.element)}>-</ElChangeOrderMinus>
+			<ElChangeOrderDown onClick={onDown(props.onSave, props.element)}>+</ElChangeOrderDown>
 		</ElChangeOrder>
 	);
 }

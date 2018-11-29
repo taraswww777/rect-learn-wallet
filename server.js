@@ -60,27 +60,27 @@ app.get('/api/delCategoryById/:id', (req, response) => {
 });
 
 //  Account
-app.get('/api/getAccountsList', (req, response) => {
+app.get('/api/accountGetList', (req, response) => {
 	response.json(accounts.getListAll());
 	response.end();
 });
 
-app.post('/api/addAccount', (req, response) => {
+app.post('/api/accountAdd', (req, response) => {
 	response.json(accounts.addAccount(req.body));
 	response.end();
 });
 
-app.post('/api/saveAccountById/:id', (req, response) => {
+app.post('/api/accountSaveById/:id', (req, response) => {
 	response.json(accounts.saveById(req.params.id, req.body));
 	response.end();
 });
 
-app.get('/api/getAccountById/:id', (req, response) => {
+app.get('/api/accountGetById/:id', (req, response) => {
 	response.json(accounts.getById(req.params.id));
 	response.end();
 });
 
-app.get('/api/delAccountById/:id', (req, response) => {
+app.get('/api/accountDelById/:id', (req, response) => {
 	response.json(accounts.delById(req.params.id));
 	response.end();
 });

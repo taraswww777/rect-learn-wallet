@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {InterfaceCategoryTree} from 'src/types/InterfaceCategory';
 import styled from "styled-components";
-import {typeDeleteAccountById, typeFunctionSaveAccount} from "../../dispatches/dispatchAdminAccounts";
+import {fnAccountsDeleteById, fnAccountsSave} from "../../dispatches/dispatchAdminAccounts";
 import {InterfaceAccount} from "../../types/InterfaceAccount";
 import ChangeOrder from "./ChangeOrder";
 import LinkDelAccount from "./links/LinkDelAccount";
@@ -34,10 +34,10 @@ const ElAdminAdminAccountsListItemName = styled.div`
 
 interface InterfaceAdminCategoriesList {
 	accountsList: InterfaceAccount[];
-	deleteAccountById: typeDeleteAccountById;
+	deleteAccountById: fnAccountsDeleteById;
 	deletingAccountReport?: any;
 	deletingAccountStatus?: any;
-	saveAccount: typeFunctionSaveAccount;
+	saveAccount: fnAccountsSave;
 }
 
 function AdminAccountsList(props: InterfaceAdminCategoriesList) {

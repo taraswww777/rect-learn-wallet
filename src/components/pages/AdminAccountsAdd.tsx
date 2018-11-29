@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {connect} from "react-redux";
-import dispatchAdminAccounts, {typeFunctionAddAccount} from "../../dispatches/dispatchAdminAccounts";
+import dispatchAdminAccounts, {fnAccountsAdd} from "../../dispatches/dispatchAdminAccounts";
 import {InterfaceAccount} from "../../types/InterfaceAccount";
 import AccountEditorForm from "../elememts/AccountEditorForm";
 
 
 export interface InterfaceAdminCategoriesAdd {
 	// saveAccount: typeFunctionSaveCategory;
-	addAccount: typeFunctionAddAccount;
+	addAccount: fnAccountsAdd;
 	savingAccountStatus?: number;
 	accountItem?: InterfaceAccount | {};
 }

@@ -24,8 +24,12 @@ export function saveToJsonFile(pathToFile, dataForSave) {
 	}
 }
 
-export function sortListByOrder(list = []) {
+export function sortListByOrderAsc(list = []) {
 	return _._.sortBy(list, ['order'], ['asc']);
+}
+
+export function sortListByOrderDesc(list = []) {
+	return _._.sortBy(list, ['order'], ['desc']);
 }
 
 export function getNewId(list = []) {

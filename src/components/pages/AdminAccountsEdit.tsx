@@ -3,8 +3,8 @@ import * as React from 'react';
 import {connect} from "react-redux";
 import {RouteComponentProps, withRouter} from "react-router";
 import dispatchAdminAccounts, {
-	typeFunctionLoadAccountById,
-	typeFunctionSaveAccount
+	fnAccountsLoadById,
+	fnAccountsSave
 } from "../../dispatches/dispatchAdminAccounts";
 import {STATUS_LOADING_ACCOUNT_ITEM_COMPLETE, STATUS_SAVING_ACCOUNT_COMPLETE, STATUS_SAVING_ACCOUNT_IN_PROCESS} from "../../reducers/ReducerAccounts";
 import {InterfaceAccount} from "../../types/InterfaceAccount";
@@ -15,8 +15,8 @@ import PreLoader from "../elememts/PreLoader";
 
 export interface InterfaceAdminCategoriesEditorProps extends RouteComponentProps {
 	accountItem?: InterfaceAccount | any;
-	saveAccount: typeFunctionSaveAccount;
-	loadAccountById: typeFunctionLoadAccountById;
+	saveAccount: fnAccountsSave;
+	loadAccountById: fnAccountsLoadById;
 	loadAccountItemStatus?: number;
 	savingAccountStatus?: number;
 }
