@@ -30,7 +30,6 @@
 		"styled-components": "4.1.1"
 	},
 	"devDependencies": {
-		"@rebass/grid": "6.0.0-4",
 		"@types/jest": "23.3.9",
 		"@types/lodash": "4.14.118",
 		"@types/node": "10.12.9",
