@@ -1,1 +1,1 @@
-[{"id":1,"date":"2018","name":"2018","sum":3213,"accountId":3,"categoryId":2,"type":"inc"}]
+[{"id": 6, "accountId": 0, "categoryId": 0, "date": "2018-11-30T11:51:20.927Z", "name": "", "sum": 0, "type": "inc"}, {"id": 7, "accountId": "2", "categoryId": "1", "date": "2018-11-30T11:51:28.053Z", "name": "5464", "sum": "05", "type": "inc"}, {"id": 8, "accountId": "2", "categoryId": "1", "date": "2018-11-30T11:51:29.429Z", "name": "5464", "sum": "05", "type": "dec"}]

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import dispatchRecords, {InterfaceRecordsDispatcher} from "../../dispatches/dispatchRecords";
 import {RECORDS_STATUS_LOADING_LIST_COMPLETE} from "../../reducers/ReducerRecords";
 import {InterfaceRecord} from "../../types/InterfaceRecord";
-import LinkAddAccount from "../elememts/links/LinkAddAccount";
+import LinkAddRecord from "../elememts/links/LinkAddRecord";
 import Message from "../elememts/Message/Message";
 import PreLoader from "../elememts/PreLoader";
 import RecordsList from "../elememts/RecordsList";
@@ -26,7 +26,7 @@ class Records extends React.Component <InterfaceRecordsProps> {
 		return (
 			<StyledRecords>
 				<StyledRecordsTitle>Records</StyledRecordsTitle>
-				<StyledRecordsBar><LinkAddAccount/></StyledRecordsBar>
+				<StyledRecordsBar><LinkAddRecord/></StyledRecordsBar>
 				<StyledRecordsList>
 					{this.props.loadListStatus !== RECORDS_STATUS_LOADING_LIST_COMPLETE ?
 						<PreLoader/>

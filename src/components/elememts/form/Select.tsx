@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import * as React from 'react';
 import styled from "styled-components";
 
@@ -20,13 +21,58 @@ export interface InterfaceSelectOption {
 export interface InterfaceSelectProps {
 	name: string,
 	defaultValue: string | number | 0 | any,
-	disabledOptionValue: string[],
 	onChange: (event: any) => void;
 	listOptions: InterfaceSelectOption[]
 }
 
 
-function Select(props: InterfaceSelectProps) {
+export function genSelectOptionsFromTree(list: any[], level: number = 0, currentId?: number, skipCurrent?: boolean): any {
+	let resultOptions: InterfaceSelectOption[] = [];
+	let prefix = ' - ';
+
+	currentId = _.get(currentId, '', 0);
+	level = _.get(level, '', 0);
+	skipCurrent = _.get(skipCurrent, '', false);
+
+	_.map(list, (item: any): boolean | void => {
+		if (skipCurrent) {
+			if (currentId === item.id) {
+				return false;
+			}
+		}
+
+		resultOptions.push({
+			key: item.id,
+			title: prefix.repeat(level) + item.name,
+			value: String(item.id),
+		});
+
+		if (item.child) {
+			level++;
+			resultOptions.push(...genSelectOptionsFromTree(item.child, level, currentId, skipCurrent));
+			level--;
+		}
+	});
+
+	return resultOptions;
+}
+
+export function genSelectOptionsFromList(list: any[]): any {
+	let resultOptions: InterfaceSelectOption[] = [];
+
+
+	_.map(list, (item: any): boolean | void => {
+		resultOptions.push({
+			key: item.id,
+			title: item.name,
+			value: String(item.id),
+		});
+	});
+
+	return resultOptions;
+}
+
+export default function Select(props: InterfaceSelectProps) {
 	return (
 		<ElementSelect
 			name={props.name}
@@ -36,11 +82,8 @@ function Select(props: InterfaceSelectProps) {
 			{props.listOptions && props.listOptions.map((option) => (
 				<option
 					disabled={option.disabled || false}
-					// disabled={props.disabledOptionValue.indexOf(option.value) > -1}
 					key={option.key} value={option.value}>{option.title}</option>
 			))}
 		</ElementSelect>
 	);
 }
-
-export default Select;

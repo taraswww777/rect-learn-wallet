@@ -52,7 +52,6 @@ function CategoriesSelect(props: InterfaceAdminCategoriesList) {
 			name={props.name}
 			defaultValue={props.categoryCurrent.parentId}
 			onChange={props.onChange}
-			disabledOptionValue={[String(props.categoryCurrent.id)]}
 			listOptions={options}/>
 	);
 }

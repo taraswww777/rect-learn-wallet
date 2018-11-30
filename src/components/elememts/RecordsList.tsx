@@ -43,6 +43,9 @@ function RecordsList(props: InterfaceRecordsListProps) {
 				<ElRecordsListListItem key={record.id}>
 					<ElRecordsListListItemInfo>
 						<ElRecordsListListItemName>{record.name}</ElRecordsListListItemName>
+						<ElRecordsListListItemName>{record.date}</ElRecordsListListItemName>
+						<ElRecordsListListItemName>{record.categoryId}</ElRecordsListListItemName>
+						<ElRecordsListListItemName>{record.accountId}</ElRecordsListListItemName>
 						<LinkDelRecord recordsDelById={props.recordsDelById} record={record}/>
 					</ElRecordsListListItemInfo>
 				</ElRecordsListListItem>
