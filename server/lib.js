@@ -46,8 +46,6 @@ export function getNewId(list = []) {
 export function addToList(list = [], newElem) {
 	let id = getNewId(list);
 
-	console.log('newElem',newElem);
-
 	list[id] = Object.assign({id: id}, newElem);
 	return _.compact(list);
 }
