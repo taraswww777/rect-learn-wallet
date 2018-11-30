@@ -32,7 +32,8 @@ function recordsAdd(dispatch: TypeDispatch) {
 		const postParams = {
 			accountId: record.accountId,
 			categoryId: record.categoryId,
-			date: record.date,
+			date: new Date(),
+			name: record.name,
 			sum: record.sum,
 			type: record.type,
 		};
@@ -133,10 +134,12 @@ export interface InterfaceRecordsDispatcher {
 	recordsUpdate: fnRecordsUpdate;
 }
 
-export default (dispatch: TypeDispatch): InterfaceRecordsDispatcher => ({
-	recordsAdd: recordsAdd(dispatch),
-	recordsDelById: recordsDelById(dispatch),
-	recordsLoadById: recordsLoadById(dispatch),
-	recordsLoadList: recordsLoadList(dispatch),
-	recordsUpdate: recordsUpdate(dispatch),
-})
+export default function dispatchRecords(dispatch: TypeDispatch): InterfaceRecordsDispatcher {
+	return {
+		recordsAdd: recordsAdd(dispatch),
+		recordsDelById: recordsDelById(dispatch),
+		recordsLoadById: recordsLoadById(dispatch),
+		recordsLoadList: recordsLoadList(dispatch),
+		recordsUpdate: recordsUpdate(dispatch),
+	};
+}

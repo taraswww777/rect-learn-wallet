@@ -134,7 +134,23 @@ function saveCategory(dispatch: TypeDispatch) {
 	}
 }
 
-export default (dispatch: TypeDispatch) => {
+export type fnAdminCategoriesAdd = (category: InterfaceCategory) => void;
+export type fnAdminCategoriesUpdate = (category: InterfaceCategory) => void;
+export type fnAdminCategoriesLoadList = typeFunction;
+export type fnAdminCategoriesLoadTree = typeFunction;
+export type fnAdminCategoriesLoadById = (categoryId: number) => void;
+export type fnAdminCategoriesDeleteById = (category: InterfaceCategory) => void;
+
+export interface InterfaceAdminCategoriesDispatcher {
+	addCategory: fnAdminCategoriesAdd;
+	loadCategoryById: fnAdminCategoriesLoadById;
+	loadListCategories: fnAdminCategoriesLoadList;
+	onDelCatById: fnAdminCategoriesDeleteById;
+	saveCategory: fnAdminCategoriesUpdate;
+	loadTreeCategories: fnAdminCategoriesLoadTree;
+}
+
+export default function dispatchAdminCategories(dispatch: TypeDispatch): InterfaceAdminCategoriesDispatcher {
 	return {
 		addCategory: addCategory(dispatch),
 		loadCategoryById: loadCategoryById(dispatch),

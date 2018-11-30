@@ -122,10 +122,20 @@ export type fnAccountsLoadList = typeFunction;
 export type fnAccountsLoadById = (accountId: number) => void;
 export type fnAccountsDeleteById = (accountId: number) => void;
 
-export default (dispatch: TypeDispatch) => ({
-	addAccount: addAccount(dispatch),
-	deleteAccountById: deleteAccountById(dispatch),
-	loadAccountById: loadAccountById(dispatch),
-	loadAccountList: loadAccountsList(dispatch),
-	saveAccount: saveAccount(dispatch),
-})
+export interface InterfaceAdminAccountsDispatcher {
+	addAccount: fnAccountsAdd;
+	deleteAccountById: fnAccountsDeleteById;
+	loadAccountById: fnAccountsLoadById;
+	loadAccountList: fnAccountsLoadList;
+	saveAccount: fnAccountsSave;
+}
+
+export default function dispatchAdminAccounts(dispatch: TypeDispatch): InterfaceAdminAccountsDispatcher {
+	return {
+		addAccount: addAccount(dispatch),
+		deleteAccountById: deleteAccountById(dispatch),
+		loadAccountById: loadAccountById(dispatch),
+		loadAccountList: loadAccountsList(dispatch),
+		saveAccount: saveAccount(dispatch),
+	};
+}
